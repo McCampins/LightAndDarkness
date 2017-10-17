@@ -1,5 +1,7 @@
 #include "Globals.h"
 
+using namespace std;
+
 bool Same(const string& a, const string& b)
 {
 	return _stricmp(a.c_str(), b.c_str()) == 0;

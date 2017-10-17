@@ -5,8 +5,6 @@
 #include <list>
 #include <vector>
 
-using namespace std;
-
 enum class EntityType
 {
 	ENTITY,
@@ -27,14 +25,14 @@ public:
 
 	void ChangeParentTo(Entity* newParent);
 
-	void FindAll(EntityType type, list<Entity*>& listToFill) const;
+	void FindAll(EntityType type, std::list<Entity*>& listToFill) const;
 
 public:
 	EntityType type;
-	string name;
-	string description;
+	std::string name;
+	std::string description;
 	Entity* parent;
-	vector<Entity*> container;
+	std::vector<Entity*> container;
 };
 
 #endif

@@ -3,8 +3,6 @@
 
 #include <vector>
 
-using namespace std;
-
 class Entity;
 class Player;
 
@@ -15,7 +13,7 @@ public:
 	~World();
 
 public:
-	vector<Entity*> entities;
+	std::vector<Entity*> entities;
 	Player* player;
 };
 

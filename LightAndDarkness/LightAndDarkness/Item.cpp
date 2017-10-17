@@ -2,6 +2,8 @@
 
 #include "Item.h"
 
+using namespace std;
+
 Item::Item(const char * name, const char * description, Entity * parent, ItemType itemType) :
 	Entity(name, description, parent), itemType(itemType)
 {

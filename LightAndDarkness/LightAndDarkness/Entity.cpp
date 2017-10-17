@@ -3,6 +3,8 @@
 
 #include "Entity.h"
 
+using namespace std;
+
 Entity::Entity(const char* name, const char* description, Entity* parent = nullptr) :
 	name(name), description(description), parent(parent)
 {

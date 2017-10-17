@@ -2,6 +2,8 @@
 
 #include "Creature.h"
 
+using namespace std;
+
 Creature::Creature(const char* name, const char* description, Room* room) : 
 	Entity(name, description, (Entity*) room)
 {

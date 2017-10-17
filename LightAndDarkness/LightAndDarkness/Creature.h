@@ -6,8 +6,6 @@
 
 #include "Entity.h"
 
-using namespace std;
-
 class Room;
 
 class Creature : public Entity
@@ -16,7 +14,7 @@ public:
 	Creature(const char* name, const char* description, Room* room);
 	~Creature();
 
-	virtual void Look(const vector<string>& args) const;
+	virtual void Look(const std::vector<std::string>& args) const;
 
 public:
 

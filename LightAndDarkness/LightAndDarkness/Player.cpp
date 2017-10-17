@@ -2,6 +2,8 @@
 
 #include "Player.h"
 
+using namespace std;
+
 Player::Player(const char* name, const char* description, Room* room) :
 	Creature(name, description, room)
 {

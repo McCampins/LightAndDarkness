@@ -3,6 +3,8 @@
 
 #include "Entity.h"
 
+using namespace std;
+
 class Room;
 
 enum class Direction 

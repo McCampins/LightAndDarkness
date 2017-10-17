@@ -6,8 +6,6 @@
 
 #include "Entity.h"
 
-using namespace std;
-
 class Exit;
 
 class Room : public Entity
@@ -18,7 +16,7 @@ public:
 
 	void Look() const;
 
-	Exit* GetExit(const string& direction) const;
+	Exit* GetExit(const std::string& direction) const;
 };
 
 #endif

@@ -9,7 +9,7 @@ public:
 	Player(const char* name, const char* description, Room* room);
 	~Player();
 
-	void Look(const vector<string>& args) const;
+	void Look(const std::vector<std::string>& args) const;
 };
 
 #endif
