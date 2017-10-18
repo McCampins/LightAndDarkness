@@ -5,6 +5,8 @@
 #define RETURN '\r'
 #define BLANK ' ';
 
+//#define NDEBUG (to invalidate asserts)
+
 #include <string>
 #include <vector>
 

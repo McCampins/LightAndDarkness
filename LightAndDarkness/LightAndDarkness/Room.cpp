@@ -1,12 +1,16 @@
 #include <iostream>
 
+#include <assert.h>
+
 #include "Room.h"
 #include "Exit.h"
 #include "Item.h"
 #include "Creature.h"
 #include "Globals.h"
 
-Room::Room(const char* name, const char* description) : Entity(name, description, NULL)
+using namespace std;
+
+Room::Room(const char* name, const char* description) : Entity(name, description, nullptr)
 {
 	type = EntityType::ROOM;
 }
@@ -42,7 +46,7 @@ void Room::Look() const
 	}
 }
 
-Exit * Room::GetExit(const string & direction) const
+Exit * Room::GetExit(const string& direction) const
 {
 	for (vector<Entity*>::const_iterator it = container.begin(); it != container.cend(); ++it)
 	{
@@ -53,5 +57,5 @@ Exit * Room::GetExit(const string & direction) const
 				return exit;
 		}
 	}
-	return NULL;
+	return nullptr;
 }

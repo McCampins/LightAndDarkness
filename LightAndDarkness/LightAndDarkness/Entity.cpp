@@ -10,7 +10,7 @@ Entity::Entity(const char* name, const char* description, Entity* parent = nullp
 {
 	type = EntityType::ENTITY;
 
-	if (parent != NULL)
+	if (parent != nullptr)
 		parent->container.push_back(this);
 }
 
@@ -27,12 +27,12 @@ void Entity::Look() const
 
 void Entity::ChangeParentTo(Entity* newParent)
 {
-	if (parent != NULL)
+	if (parent != nullptr)
 		container.erase(std::remove(container.begin(), container.end(), this), container.end());
 
 	parent = newParent;
 
-	if (parent != NULL)
+	if (parent != nullptr)
 		parent->container.push_back(this);
 }
 

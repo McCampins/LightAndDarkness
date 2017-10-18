@@ -1,4 +1,5 @@
 #include "World.h"
+#include "Entity.h"
 
 World::World()
 {
