@@ -3,6 +3,8 @@
 #include "Exit.h"
 #include "Room.h"
 
+using namespace std;
+
 Exit::Exit(const char* name, const char* oppositeName, const char* description, Room* origin, Room* dest,
 	bool oneWay, bool locked, bool closed, Entity* key) :
 	Entity(name, description, (Entity*)origin), 
@@ -43,7 +45,7 @@ Room * Exit::GetDestinationFrom(const Room * room) const
 	if (room == destination && !oneWay)
 		return (Room*)parent;
 
-	return NULL; //Error
+	return nullptr; //Error
 }
 
 

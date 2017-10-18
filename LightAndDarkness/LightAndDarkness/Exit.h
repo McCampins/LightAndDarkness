@@ -3,8 +3,6 @@
 
 #include "Entity.h"
 
-using namespace std;
-
 class Room;
 
 enum class Direction 
@@ -23,14 +21,14 @@ public:
 	~Exit();
 
 	void Look() const;
-	const string& GetNameFrom(const Room* room) const;
+	const std::string& GetNameFrom(const Room* room) const;
 	Room* GetDestinationFrom(const Room* room) const;
 
 public:
 	bool oneWay;
 	bool locked;
 	bool closed;
-	string oppositeName;
+	std::string oppositeName;
 	Room* destination;
 	Entity* key;
 };
