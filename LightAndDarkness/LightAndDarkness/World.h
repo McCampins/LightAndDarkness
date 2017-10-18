@@ -14,7 +14,7 @@ public:
 
 public:
 	std::vector<Entity*> entities;
-	Player* player;
+	Player* player = nullptr;
 };
 
 #endif

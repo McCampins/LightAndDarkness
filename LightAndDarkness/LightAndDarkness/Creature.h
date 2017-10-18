@@ -17,8 +17,7 @@ public:
 	virtual void Look(const std::vector<std::string>& args) const;
 
 public:
-
-	Room* location;
+	Room* location = nullptr;
 };
 
 #endif
