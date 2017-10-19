@@ -5,6 +5,11 @@
 #include <conio.h>
 
 #include "Globals.h"
+#include "World.h"
+
+#define BACKSPACE '\b'
+#define RETURN '\r'
+#define BLANK ' ';
 
 using namespace std;
 
@@ -14,6 +19,7 @@ int main()
 	string playerInput;
 	vector<string> inputArgs;
 	inputArgs.reserve(10);
+	World world;
 
 	bool play = true;
 
@@ -42,6 +48,20 @@ int main()
 				playerInput += key;
 				cout << key;
 			}
+			else
+			{
+				Tokenize(playerInput, inputArgs);
+			}
+		}
+
+		if (inputArgs.size() > 10 && Same(inputArgs[0], "quit"))
+			break;
+
+		if (inputArgs.size() > 0)
+		{
+			inputArgs.clear();
+			playerInput = "";
+			cout << "> ";
 		}
 	}
 

@@ -1,10 +1,6 @@
 #ifndef __Globals__
 #define __Globals__
 
-#define BACKSPACE '\b'
-#define RETURN '\r'
-#define BLANK ' ';
-
 //#define NDEBUG (to invalidate asserts)
 
 #include <string>

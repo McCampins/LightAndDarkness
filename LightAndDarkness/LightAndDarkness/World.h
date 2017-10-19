@@ -12,6 +12,8 @@ public:
 	World();
 	~World();
 
+	bool Tick(std::vector<std::string>& args) const;
+
 public:
 	std::vector<Entity*> entities;
 	Player* player = nullptr;

@@ -60,3 +60,17 @@ World::~World()
 
 	entities.clear();
 }
+
+bool World::Tick(std::vector<std::string>& args) const
+{
+	bool ret = true;
+
+	/*
+	if (args.size() > 0 && args[0].length() > 0)
+		ret = ParseCommand(args);
+
+	GameLoop();
+	*/
+
+	return ret;
+}
