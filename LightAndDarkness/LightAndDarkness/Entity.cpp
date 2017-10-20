@@ -25,6 +25,10 @@ void Entity::Look() const
 	cout << description << endl;
 }
 
+void Entity::Tick()
+{
+}
+
 void Entity::ChangeParentTo(Entity* newParent)
 {
 	if (parent != nullptr)

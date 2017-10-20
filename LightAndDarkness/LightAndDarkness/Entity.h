@@ -10,6 +10,7 @@ enum class EntityType
 	ENTITY,
 	CREATURE,
 	PLAYER,
+	NPC,
 	EXIT,
 	ROOM,
 	ITEM
@@ -22,6 +23,7 @@ public:
 	~Entity();
 
 	virtual void Look() const;
+	virtual void Tick();
 
 	void ChangeParentTo(Entity* newParent);
 

@@ -3,6 +3,10 @@
 #include "Room.h"
 #include "Exit.h"
 #include "Player.h"
+#include "NPC.h"
+#include "Globals.h"
+
+using namespace std;
 
 World::World()
 {
@@ -17,9 +21,9 @@ World::World()
 	Room* corpseRoom = new Room("Corpse Room", "You are inside a wide room, empty and dark. You feel like you just woke up. Next to you "
 	"you see dozens of other creatures like you, all laying motionless on the ground.");
 	Room* centerRoom = new Room("Center Room", "You are inside a large circular room. Right in the center there's a cylindrical "
-		"table with six holes on top. The rest of the room is well lit and surgically white clean.");
+		"table with six holes on top. The rest of the room is well lit and white clean.");
 	Room* godRoom = new Room("God Room", "You are inside a huge room, you can barely see its end. You feel raw power emanating from "
-		"its center, where a flowing creature stands. You hear it whispering \"Come closer, bring me the ligth...\"");
+		"its center, where a flowing creature stands. You hear it whispering \"Come closer, bring me the light...\"");
 
 	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom);
 	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom);
@@ -48,8 +52,15 @@ World::World()
 	entities.push_back(ex7);
 	entities.push_back(ex8);
 
-	Player* player = new Player("Light corpse", "You are a floating smoke-like creature, with a small light flickering inside you.", corpseRoom);
+	NPC* god = new NPC("Light God", "You see a flowing creature emanating light towards all directions. Your flickering light seems "
+		"synced with the creature's.", godRoom, "You hear a whispering sound coming through the light, \"Hurry, you must bring me the light\"");
+
+	Player* player = new Player("Light corpse", "You are a floating smoke-like creature, with a small light flickering inside you.", corpseRoom, "The light inside you flickers, you feel a small pull inside, urging you to hurry.");
+
+	entities.push_back(god);
+	entities.push_back(player);
 }
+
 
 World::~World()
 {
@@ -61,16 +72,45 @@ World::~World()
 	entities.clear();
 }
 
-bool World::Tick(std::vector<std::string>& args) const
+bool World::Tick(std::vector<std::string>& args)
 {
 	bool ret = true;
 
-	/*
 	if (args.size() > 0 && args[0].length() > 0)
 		ret = ParseCommand(args);
 
 	GameLoop();
-	*/
 
 	return ret;
 }
+
+bool World::ParseCommand(std::vector<std::string>& args)
+{
+	bool ret = true;
+
+	switch (args.size())
+	{
+	case 1:
+		if (Same(args[0], "look"))
+		{
+			player->Look(args);
+		}
+	}
+
+	return ret;
+}
+
+void World::GameLoop()
+{
+	clock_t now = clock();
+
+	if ((now - tickTimer) / CLOCKS_PER_SEC > TICK_FREQUENCY)
+	{
+		for (vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
+			(*it)->Tick();
+
+		tickTimer = now;
+	}
+}
+
+

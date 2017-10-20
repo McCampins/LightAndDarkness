@@ -120,6 +120,7 @@
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="World.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="Exit.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="World.h" />
