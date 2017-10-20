@@ -19,13 +19,16 @@ int main()
 	string playerInput;
 	vector<string> inputArgs;
 	inputArgs.reserve(10);
-	World world;
 
 	bool play = true;
 
 	cout << "Welcome to Light and Darkness!" << endl;
 
 	cout << "> ";
+
+	World world;
+
+	inputArgs.push_back("look");
 
 	while (play)
 	{
@@ -54,8 +57,11 @@ int main()
 			}
 		}
 
-		if (inputArgs.size() > 10 && Same(inputArgs[0], "quit"))
+		if (inputArgs.size() > 1 && Same(inputArgs[0], "quit"))
 			break;
+
+		if (world.Tick(inputArgs) == false)
+			cout << "Sorry, I don't understand your command." << endl;
 
 		if (inputArgs.size() > 0)
 		{

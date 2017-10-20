@@ -15,10 +15,13 @@ public:
 	~Creature();
 
 	//virtual void Look(const std::vector<std::string>& args) const;
+	virtual void Go(const std::vector<std::string>& args);
 	void Tick();
 
+	Room* GetRoom() const;
+	bool PlayerInRoom() const;
+
 public:
-	Room* location = nullptr;
 	std::string stateSentence;
 };
 

@@ -5,7 +5,7 @@
 
 #include <time.h>
 
-#define TICK_FREQUENCY 1.5f
+#define STATE_TICK_FREQUENCY 60.0f
 
 class Entity;
 class Player;
@@ -24,8 +24,8 @@ public:
 public:
 	clock_t tickTimer;
 	std::vector<Entity*> entities;
-	Player* player = nullptr;
-	NPC* god = nullptr;
+	Player* player;
+	NPC* god;
 };
 
 #endif

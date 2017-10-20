@@ -2,6 +2,7 @@
 #include <algorithm>
 
 #include "Entity.h"
+#include "Globals.h"
 
 using namespace std;
 
@@ -38,6 +39,42 @@ void Entity::ChangeParentTo(Entity* newParent)
 
 	if (parent != nullptr)
 		parent->container.push_back(this);
+}
+
+bool Entity::Find(Entity* entity) const
+{
+	for (vector<Entity*>::const_iterator it = container.begin(); it != container.cend(); ++it)
+	{
+		if ((*it) == entity)
+			return true;
+	}
+
+	return false;
+}
+
+Entity* Entity::Find(EntityType type) const
+{
+	for (vector<Entity*>::const_iterator it = container.begin(); it != container.cend(); ++it)
+	{
+		if ((*it)->type == type)
+			return *it;
+	}
+
+	return nullptr;
+}
+
+Entity* Entity::Find(const string& name, EntityType type) const
+{
+	for (vector<Entity*>::const_iterator it = container.begin(); it != container.cend(); ++it)
+	{
+		if ((*it)->type == type)
+		{
+			if (Same((*it)->name, name))
+				return *it;
+		}
+	}
+
+	return nullptr;
 }
 
 void Entity::FindAll(EntityType type, list<Entity*>& listToFill) const

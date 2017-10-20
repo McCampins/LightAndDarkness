@@ -10,6 +10,7 @@ public:
 	~Player();
 
 	void Look(const std::vector<std::string>& args) const;
+	void Go(const std::vector<std::string>& args);
 };
 
 #endif

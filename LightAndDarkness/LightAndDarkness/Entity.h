@@ -27,6 +27,9 @@ public:
 
 	void ChangeParentTo(Entity* newParent);
 
+	bool Find(Entity* entity) const;
+	Entity* Find(EntityType type) const;
+	Entity* Find(const std::string& name, EntityType type) const;
 	void FindAll(EntityType type, std::list<Entity*>& listToFill) const;
 
 public:
