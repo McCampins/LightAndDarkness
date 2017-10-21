@@ -57,11 +57,11 @@ int main()
 			}
 		}
 
-		if (inputArgs.size() > 1 && Same(inputArgs[0], "quit"))
+		if (inputArgs.size() > 0 && Same(inputArgs[0], "quit"))
 			break;
 
 		if (world.Tick(inputArgs) == false)
-			cout << "Sorry, I don't understand your command." << endl;
+			cout << "\nSorry, I don't understand your command." << endl;
 
 		if (inputArgs.size() > 0)
 		{

@@ -61,7 +61,7 @@ void Player::Go(const std::vector<std::string>& args)
 		return;
 	}
 
-	cout << "You go through a " << exit->GetNameFrom((Room*)parent) << "." << endl;
+	cout << "\nYou go to the " << exit->GetNameFrom((Room*)parent) << "." << endl;
 	ChangeParentTo(exit->GetDestinationFrom((Room*)parent));
 	parent->Look();
 }

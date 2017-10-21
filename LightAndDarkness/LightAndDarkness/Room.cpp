@@ -21,15 +21,17 @@ Room::~Room()
 
 void Room::Look() const
 {
+	cout << "\n---------------" << endl;
 	cout << name << endl;
-	cout << description << endl;
+	cout << "---------------" << endl;
+	cout << description << "\n" << endl;
 
 	for (vector<Entity*>::const_iterator it = container.begin(); it != container.cend(); ++it)
 	{
 		if ((*it)->type == EntityType::EXIT)
 		{
 			Exit* exit = (Exit*)*it;
-			cout << "To the " << exit->GetNameFrom(this) << " you see " << exit->GetDestinationFrom(this)->name << endl;
+			cout << "To the " << exit->GetNameFrom(this) << " you see the " << exit->GetDestinationFrom(this)->name << endl;
 		}
 
 		else if ((*it)->type == EntityType::ITEM)
@@ -38,10 +40,10 @@ void Room::Look() const
 			cout << "Inside the room you see a " << item->name << endl;
 		}
 
-		else if ((*it)->type == EntityType::CREATURE)
+		else if ((*it)->type == EntityType::NPC)
 		{
 			Creature* creature = (Creature*)*it;
-			cout << "There is also the creature " << creature->name << endl;
+			cout << "Inside the room stands the " << creature->name << endl;
 		}
 	}
 }

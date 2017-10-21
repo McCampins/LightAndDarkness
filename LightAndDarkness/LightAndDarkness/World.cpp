@@ -28,7 +28,7 @@ World::World()
 
 	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom);
 	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom);
-	Exit* ex3 = new Exit("East", "West", "Narrow Passage", centerRoom, redRoom);
+	Exit* ex3 = new Exit("West", "East", "Narrow Passage", centerRoom, redRoom);
 	Exit* ex4 = new Exit("South", "North", "Narrow Passage", corpseRoom, centerRoom);
 	Exit* ex5 = new Exit("South", "North", "Light Door", centerRoom, godRoom);
 	Exit* ex6 = new Exit("East", "West", "Light Door", centerRoom, greenRoom);
@@ -123,6 +123,7 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		{
 			ret = false;
 		}
+		break;
 	case 2:
 		if (Same(args[0], "look"))
 		{
