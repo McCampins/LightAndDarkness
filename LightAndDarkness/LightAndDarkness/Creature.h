@@ -14,7 +14,7 @@ public:
 	Creature(const char* name, const char* description, Room* room, const char* state);
 	~Creature();
 
-	//virtual void Look(const std::vector<std::string>& args) const;
+	void Look() const;
 	virtual void Go(const std::vector<std::string>& args);
 	void Tick();
 

@@ -17,13 +17,10 @@ Creature::~Creature()
 {
 }
 
-/*
-void Creature::Look(const vector<string>& args) const
+void Creature::Look() const
 {
-	cout << name << endl;
-	cout << description << endl;
+	cout << "\n" << description << endl;
 }
-*/
 
 void Creature::Go(const std::vector<std::string>& args)
 {

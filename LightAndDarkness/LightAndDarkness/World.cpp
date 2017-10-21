@@ -133,6 +133,16 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		{
 			player->Go(args);
 		}
+		break;
+	case 3:
+		if (Same(args[0], "look"))
+		{
+			args[1] = args[1] + " " + args[2];
+			player->Look(args);
+		}
+		break;
+	default:
+		ret = false;
 	}
 
 	return ret;

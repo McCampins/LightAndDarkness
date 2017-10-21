@@ -31,14 +31,13 @@ void Player::Look(const vector<string>& args) const
 			}
 		}
 
-		if (Same(args[1], "myself"))
+		if (Same(args[1], "myself") || Same(args[1], "me"))
 		{
-			cout << name << endl;
-			cout << description << endl;
+			cout << "\n" << description << endl;
 			return;
 		}
 
-		cout << "Can't find this entity." << endl;
+		cout << "\nCan't find this entity." << endl;
 	} else
 	{
 		parent->Look();
