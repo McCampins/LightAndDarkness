@@ -13,9 +13,12 @@ using namespace std;
 
 World::World()
 {
+	restart = false;
+
 	//Rooms
+	Room* redRoom = new Room("Red Room", "You are inside a small room, dimly lighted with one red lamp. When you enter you hear a faint "
+		"echo through the light: \"No mind can wander too far, a sense of balance must be met to advance...\"");
 	Room* orangeRoom = new Room("Orange Room", "You are inside a small room, dimly lighted with two orange lamps.");
-	Room* redRoom = new Room("Red Room", "You are inside a small room, dimly lighted with one red lamps.");
 	Room* yellowRoom = new Room("Yellow Room", "You are inside a small room, dimly lighted with three yellow lamps.");
 	Room* greenRoom = new Room("Green Room", "You are inside a small room, dimly ligthed with four green lamps.");
 	Room* blueRoom = new Room("Blue Room", "You are inside a small room, dimly lighted with five blue lamps.");
@@ -26,9 +29,9 @@ World::World()
 	Room* centerRoom = new Room("Center Room", "You are inside a large circular room. The room is well lit and white clean.");
 	Room* godRoom = new Room("God Room", "You are inside a huge room, you can barely see its end. You feel raw power emanating from "
 		"its center, where a flowing creature stands. You hear it whispering \"Come closer, bring me the light...\"");
-	
-	entities.push_back(orangeRoom);
+
 	entities.push_back(redRoom);
+	entities.push_back(orangeRoom);
 	entities.push_back(yellowRoom);
 	entities.push_back(greenRoom);
 	entities.push_back(blueRoom);
@@ -114,11 +117,21 @@ World::World()
 	entities.push_back(whiteBall);
 	entities.push_back(blackBall);
 
+	//Red Room
+	Item* redTable = new Item("Red Table", "A wooden old table, standing in the middle of the room.", redRoom, ItemType::COMMON);
+	Item* leftRedChest = new Item("Left Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
+	Item* centerRedChest = new Item("Center Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
+	Item* rightRedChest = new Item("Right Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
+
+
+
+	//Player
 	player = new Player("Light corpse", "You are a floating smoke-like creature, with a small light flickering inside you.",
 		corpseRoom, "\nThe light inside you flickers, you feel a small pull inside, urging you to hurry.");
 
 	entities.push_back(player);
 
+	//NPC God
 	god = new NPC("Light God", "You see a flowing creature emanating light towards all directions. Your flickering light seems "
 		"synced with the creature's.", godRoom, "\nYou hear a whispering sound coming through the light, "
 		"\"Hurry, you must bring me the light...\"");
@@ -129,7 +142,7 @@ World::World()
 
 World::~World()
 {
-	for (std::vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
+	for (std::vector<Entity*>::reverse_iterator it = entities.rbegin(); it != entities.rend(); ++it)
 	{
 		delete *it;
 	}
@@ -217,7 +230,7 @@ bool World::ParseCommand(std::vector<std::string>& args)
 	return ret;
 }
 
-void World::GameLoop()
+void World::GameLoop() 
 {
 	clock_t now = clock();
 
@@ -228,6 +241,11 @@ void World::GameLoop()
 				(*it)->Tick();
 
 		tickTimer = now;
+	}
+
+	if ((now - tickTimer) / CLOCKS_PER_SEC > STATE_END_LIFE_FREQUENCY)
+	{
+		restart = true;
 	}
 }
 

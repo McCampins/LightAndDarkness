@@ -6,6 +6,7 @@
 #include <time.h>
 
 #define STATE_TICK_FREQUENCY 60.0f
+#define STATE_END_LIFE_FREQUENCY 300.0f
 
 class Entity;
 class Player;
@@ -22,10 +23,11 @@ public:
 	void GameLoop();
 
 public:
-	clock_t tickTimer;
+	clock_t tickTimer = clock();
 	std::vector<Entity*> entities;
-	Player* player;
-	NPC* god;
+	Player* player = nullptr;
+	NPC* god = nullptr;
+	bool restart = false;
 };
 
 #endif

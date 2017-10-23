@@ -26,7 +26,7 @@ int main()
 
 	cout << "> ";
 
-	World world;
+	World* world = new World();
 
 	inputArgs.push_back("look");
 
@@ -60,7 +60,7 @@ int main()
 		if (inputArgs.size() > 0 && Same(inputArgs[0], "quit"))
 			break;
 
-		if (world.Tick(inputArgs) == false)
+		if (world->Tick(inputArgs) == false)
 			cout << "\nSorry, I don't understand your command." << endl;
 
 		if (inputArgs.size() > 0)
@@ -68,6 +68,20 @@ int main()
 			inputArgs.clear();
 			playerInput = "";
 			cout << "> ";
+		}
+
+		if (world->restart == true)
+		{
+			cout << "\nThe light inside flickers pathetically one last time, and slowly you feel your conscience drifting away. As you close your eyes you hear "
+				"an angry scream: \"You fool! I require your light to survive, you must deliver it next time...\"\n\n" << endl;
+			
+			delete world;
+			world = nullptr;
+			world = new World();
+
+			cout << "> ";
+
+			inputArgs.push_back("look");
 		}
 	}
 
