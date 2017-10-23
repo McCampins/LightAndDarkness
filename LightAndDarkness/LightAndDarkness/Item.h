@@ -15,13 +15,16 @@ enum class ItemType
 class Item : public Entity
 {
 public:
-	Item(const char* name, const char* description, Entity* parent, ItemType itemType = ItemType::COMMON);
+	Item(const char* name, const char* description, Entity* parent, ItemType itemType = ItemType::COMMON, bool locked = false,
+	bool hidden = false);
 	~Item();
 
 	void Look() const;
 
 public:
 	ItemType itemType;
+	bool contentsLocked;
+	bool hidden;
 };
 
 #endif

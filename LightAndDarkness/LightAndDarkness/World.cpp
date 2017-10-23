@@ -7,11 +7,13 @@
 #include "Player.h"
 #include "NPC.h"
 #include "Globals.h"
+#include "Item.h"
 
 using namespace std;
 
 World::World()
 {
+	//Rooms
 	Room* orangeRoom = new Room("Orange Room", "You are inside a small room, dimly lighted with two orange lamps.");
 	Room* redRoom = new Room("Red Room", "You are inside a small room, dimly lighted with one red lamps.");
 	Room* yellowRoom = new Room("Yellow Room", "You are inside a small room, dimly lighted with three yellow lamps.");
@@ -21,20 +23,10 @@ World::World()
 
 	Room* corpseRoom = new Room("Corpse Room", "You are inside a wide room, empty and dark. You feel like you just woke up. Next to you "
 		"you see dozens of other creatures like you, all laying motionless on the ground.");
-	Room* centerRoom = new Room("Center Room", "You are inside a large circular room. Right in the center there's a cylindrical "
-		"table with six holes on top. The rest of the room is well lit and white clean.");
+	Room* centerRoom = new Room("Center Room", "You are inside a large circular room. The room is well lit and white clean.");
 	Room* godRoom = new Room("God Room", "You are inside a huge room, you can barely see its end. You feel raw power emanating from "
 		"its center, where a flowing creature stands. You hear it whispering \"Come closer, bring me the light...\"");
-
-	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true);
-	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom, false, true);
-	Exit* ex3 = new Exit("West", "East", "Narrow Passage", centerRoom, redRoom);
-	Exit* ex4 = new Exit("South", "North", "Narrow Passage", corpseRoom, centerRoom, true);
-	Exit* ex5 = new Exit("South", "North", "Light Door", centerRoom, godRoom, false, true);
-	Exit* ex6 = new Exit("East", "West", "Light Door", centerRoom, greenRoom, false, true);
-	Exit* ex7 = new Exit("North", "South", "Light Door", greenRoom, blueRoom, false, true);
-	Exit* ex8 = new Exit("South", "North", "Light Door", greenRoom, violetRoom, false, true);
-
+	
 	entities.push_back(orangeRoom);
 	entities.push_back(redRoom);
 	entities.push_back(yellowRoom);
@@ -44,6 +36,17 @@ World::World()
 	entities.push_back(corpseRoom);
 	entities.push_back(centerRoom);
 	entities.push_back(godRoom);
+
+	//Exits
+	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true);
+	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom, false, true);
+	Exit* ex3 = new Exit("West", "East", "Narrow Passage", centerRoom, redRoom);
+	Exit* ex4 = new Exit("South", "North", "Narrow Passage", corpseRoom, centerRoom, true);
+	Exit* ex5 = new Exit("South", "North", "Light Door", centerRoom, godRoom, false, true);
+	Exit* ex6 = new Exit("East", "West", "Light Door", centerRoom, greenRoom, false, true);
+	Exit* ex7 = new Exit("North", "South", "Light Door", greenRoom, blueRoom, false, true);
+	Exit* ex8 = new Exit("South", "North", "Light Door", greenRoom, violetRoom, false, true);
+
 	entities.push_back(ex1);
 	entities.push_back(ex2);
 	entities.push_back(ex3);
@@ -52,6 +55,64 @@ World::World()
 	entities.push_back(ex6);
 	entities.push_back(ex7);
 	entities.push_back(ex8);
+
+	//Color room keys
+	Item* orangeKey = new Item("Orange Key", "A small orange key", nullptr, ItemType::KEY);
+	Item* yellowKey = new Item("Yellow Key", "A small yellow key", nullptr, ItemType::KEY);
+	Item* greenKey = new Item("Green Key", "A small green key", nullptr, ItemType::KEY);
+	Item* blueKey = new Item("Blue Key", "A small blue key", nullptr, ItemType::KEY);
+	Item* violetKey = new Item("Violet Key", "A small violet key", nullptr, ItemType::KEY);
+
+	entities.push_back(orangeKey);
+	entities.push_back(yellowKey);
+	entities.push_back(greenKey);
+	entities.push_back(blueKey);
+	entities.push_back(violetKey);
+
+	//Light balls given in each color room
+	Item* redBall = new Item("Red Ball", "A ball of condensed red light", nullptr, ItemType::LIGHTBALL);
+	Item* orangeBall = new Item("Orange Ball", "A ball of condensed orange light", nullptr, ItemType::LIGHTBALL);
+	Item* yellowBall = new Item("Yellow Ball", "A ball of condensed yellow light", nullptr, ItemType::LIGHTBALL);
+	Item* greenBall = new Item("Green Ball", "A ball of condensed green light", nullptr, ItemType::LIGHTBALL);
+	Item* blueBall = new Item("Blue Ball", "A ball of condensed blue light", nullptr, ItemType::LIGHTBALL);
+	Item* violetBall = new Item("Violet Ball", "A ball of condensed violet light", nullptr, ItemType::LIGHTBALL);
+
+	entities.push_back(redBall);
+	entities.push_back(orangeBall);
+	entities.push_back(yellowBall);
+	entities.push_back(greenBall);
+	entities.push_back(blueBall);
+	entities.push_back(violetBall);
+
+	//Center room
+	Item* lightPillar = new Item("Light Pillar", "A Cylindrical table made of stone with six holes on top. The holes are lined up in the "
+		"center of the table, from left to right. Over them there is a rainbow with an angel on each side. "
+		"Under the six holes, there is an inverted rainbow with a demon on each side. Both rainbows are carved delicately in the stone.",
+		centerRoom, ItemType::COMMON);
+	Item* redHole = new Item("Red Hole", "A faint red light is coming from the seamingly endless bottom of the hole", lightPillar,
+		ItemType::COMMON);
+	Item* orangeHole = new Item("Orange Hole", "A faint orange light is coming from the seamingly endless bottom of the hole", lightPillar,
+		ItemType::COMMON);
+	Item* yellowHole = new Item("Yellow Hole", "A faint yellow light is coming from the seamingly endless bottom of the hole", lightPillar,
+		ItemType::COMMON);
+	Item* greenHole = new Item("Green Hole", "A faint green light is coming from the seamingly endless bottom of the hole", lightPillar,
+		ItemType::COMMON);
+	Item* blueHole = new Item("Blue Hole", "A faint blue light is coming from the seamingly endless bottom of the hole", lightPillar,
+		ItemType::COMMON);
+	Item* violetHole = new Item("Violet Hole", "A faint violet light is coming from the seamingly endless bottom of the hole", lightPillar,
+		ItemType::COMMON);
+	Item* whiteBall = new Item("White Ball", "A ball of condensed white light", centerRoom, ItemType::WHITEBALL, false, true);
+	Item* blackBall = new Item("Black Ball", "A ball of condensed darkness", centerRoom, ItemType::BLACKBALL, false, true);
+
+	entities.push_back(lightPillar);
+	entities.push_back(redHole);
+	entities.push_back(orangeHole);
+	entities.push_back(yellowHole);
+	entities.push_back(greenHole);
+	entities.push_back(blueHole);
+	entities.push_back(violetHole);
+	entities.push_back(whiteBall);
+	entities.push_back(blackBall);
 
 	player = new Player("Light corpse", "You are a floating smoke-like creature, with a small light flickering inside you.",
 		corpseRoom, "\nThe light inside you flickers, you feel a small pull inside, urging you to hurry.");

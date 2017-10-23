@@ -37,13 +37,14 @@ void Room::Look() const
 		else if ((*it)->type == EntityType::ITEM)
 		{
 			Item* item = (Item*)*it;
-			cout << "Inside the room you see a " << item->name << endl;
+			if (item->hidden == false)
+				cout << "\nInside the room you see a " << item->name << endl;
 		}
 
 		else if ((*it)->type == EntityType::NPC)
 		{
 			Creature* creature = (Creature*)*it;
-			cout << "Inside the room stands the " << creature->name << endl;
+			cout << "\nInside the room stands the " << creature->name << endl;
 		}
 	}
 }

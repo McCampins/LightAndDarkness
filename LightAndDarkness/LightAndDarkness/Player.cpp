@@ -24,10 +24,23 @@ void Player::Look(const vector<string>& args) const
 	{
 		for (vector<Entity*>::const_iterator it = parent->container.begin(); it != parent->container.cend(); ++it)
 		{
-			if (Same((*it)->name, args[1]))
+			if ((*it)->container.empty() == false)
 			{
-				(*it)->Look();
-				return;
+				for (vector<Entity*>::const_iterator it2 = (*it)->container.begin(); it2 != (*it)->container.cend(); ++it)
+				{
+					if (Same((*it)->name, args[1])) {
+						(*it)->Look();
+						return;
+					}
+				}
+			}
+			else
+			{
+				if (Same((*it)->name, args[1]))
+				{
+					(*it)->Look();
+					return;
+				}
 			}
 		}
 
