@@ -1,20 +1,13 @@
 ﻿  World.cpp
-<<<<<<< HEAD
+  main.cpp
   Generando código...
   Omitiendo... (no se detectaron cambios relevantes)
-  main.cpp
-  LightAndDarkness.vcxproj -> C:\Users\marca\Documents\GitHub\LightAndDarkness\LightAndDarkness\Debug\LightAndDarkness.exe
-=======
   Room.cpp
   Player.cpp
   NPC.cpp
-  main.cpp
   Item.cpp
   Globals.cpp
   Exit.cpp
   Entity.cpp
   Creature.cpp
-  Generando código...
-  LightAndDarkness.vcxproj -> C:\Users\marccc15\Documents\GitHub\LightAndDarkness\LightAndDarkness\Debug\LightAndDarkness.exe
-  LightAndDarkness.vcxproj -> C:\Users\marccc15\Documents\GitHub\LightAndDarkness\LightAndDarkness\Debug\LightAndDarkness.pdb (Partial PDB)
->>>>>>> 8b9943cad62862dca0bc7a534e90c3bb9752f4ed
+  LightAndDarkness.vcxproj -> C:\Users\marca\Documents\GitHub\LightAndDarkness\LightAndDarkness\Debug\LightAndDarkness.exe
