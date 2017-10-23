@@ -10,7 +10,7 @@ using namespace std;
 Player::Player(const char* name, const char* description, Room* room, const char* state) :
 	Creature(name, description, room, state)
 {
-	EntityType::PLAYER;
+	type = EntityType::PLAYER;
 }
 
 
@@ -54,13 +54,18 @@ void Player::Go(const std::vector<std::string>& args)
 		return;
 	}
 
+	if (exit->oneWay)
+	{
+		cout << "\nAs you walk through, the door locks behind you." << endl;
+	}
+
 	if (exit->locked)
 	{
 		cout << "\nThis exit is locked." << endl;
 		return;
 	}
 
-	cout << "\nYou go to the " << exit->GetNameFrom((Room*)parent) << "." << endl;
+	cout << "\nYou go through a " << exit->description << " to the " << exit->GetNameFrom((Room*)parent) << "." << endl;
 	ChangeParentTo(exit->GetDestinationFrom((Room*)parent));
 	parent->Look();
 }

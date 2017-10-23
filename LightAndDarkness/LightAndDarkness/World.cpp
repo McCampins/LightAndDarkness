@@ -26,14 +26,14 @@ World::World()
 	Room* godRoom = new Room("God Room", "You are inside a huge room, you can barely see its end. You feel raw power emanating from "
 		"its center, where a flowing creature stands. You hear it whispering \"Come closer, bring me the light...\"");
 
-	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom);
-	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom);
+	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true);
+	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom, false, true);
 	Exit* ex3 = new Exit("West", "East", "Narrow Passage", centerRoom, redRoom);
-	Exit* ex4 = new Exit("South", "North", "Narrow Passage", corpseRoom, centerRoom);
-	Exit* ex5 = new Exit("South", "North", "Light Door", centerRoom, godRoom);
-	Exit* ex6 = new Exit("East", "West", "Light Door", centerRoom, greenRoom);
-	Exit* ex7 = new Exit("North", "South", "Light Door", greenRoom, blueRoom);
-	Exit* ex8 = new Exit("South", "North", "Light Door", greenRoom, violetRoom);
+	Exit* ex4 = new Exit("South", "North", "Narrow Passage", corpseRoom, centerRoom, true);
+	Exit* ex5 = new Exit("South", "North", "Light Door", centerRoom, godRoom, false, true);
+	Exit* ex6 = new Exit("East", "West", "Light Door", centerRoom, greenRoom, false, true);
+	Exit* ex7 = new Exit("North", "South", "Light Door", greenRoom, blueRoom, false, true);
+	Exit* ex8 = new Exit("South", "North", "Light Door", greenRoom, violetRoom, false, true);
 
 	entities.push_back(orangeRoom);
 	entities.push_back(redRoom);
@@ -131,6 +131,14 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		}
 		else if (Same(args[0], "go"))
 		{
+			if (Same(args[1], "left"))
+			{
+				args[1] = "west";
+			}
+			else if (Same(args[1], "right"))
+			{
+				args[1] = "east";
+			}
 			player->Go(args);
 		}
 		break;
@@ -155,7 +163,7 @@ void World::GameLoop()
 	if ((now - tickTimer) / CLOCKS_PER_SEC > STATE_TICK_FREQUENCY)
 	{
 		for (vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
-			if ((*it)->type == EntityType::CREATURE)
+			if ((*it)->type == EntityType::PLAYER || (*it)->type == EntityType::NPC)
 				(*it)->Tick();
 
 		tickTimer = now;

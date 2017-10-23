@@ -8,9 +8,9 @@
 using namespace std;
 
 Exit::Exit(const char* name, const char* oppositeName, const char* description, Room* origin, Room* dest,
-	bool oneWay, bool locked, bool closed, Entity* key) :
+	bool oneWay, bool locked, Entity* key) :
 	Entity(name, description, (Entity*)origin),
-	oppositeName(oppositeName), destination(dest), oneWay(oneWay), locked(locked), closed(closed), key(key)
+	oppositeName(oppositeName), destination(dest), oneWay(oneWay), locked(locked), key(key)
 {
 	type = EntityType::EXIT;
 

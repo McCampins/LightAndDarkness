@@ -17,7 +17,7 @@ class Exit : public Entity
 {
 public:
 	Exit(const char* direction, const char* oppositeName, const char* description, Room* origin, Room* destination, 
-		bool oneWay = false, bool locked = false, bool closed = false, Entity* key = nullptr);
+		bool oneWay = false, bool locked = false, Entity* key = nullptr);
 	~Exit();
 
 	void Look() const;
@@ -27,7 +27,6 @@ public:
 public:
 	bool oneWay;
 	bool locked;
-	bool closed;
 	std::string oppositeName;
 	Room* destination;
 	Entity* key;
