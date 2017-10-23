@@ -22,15 +22,30 @@ void Player::Look(const vector<string>& args) const
 {
 	if (args.size() > 1)
 	{
+		if (Same(args[1], "myself") || Same(args[1], "me"))
+		{
+			cout << "\n" << description << endl;
+			return;
+		}
+
 		for (vector<Entity*>::const_iterator it = parent->container.begin(); it != parent->container.cend(); ++it)
 		{
-			if ((*it)->container.empty() == false)
+			if ((*it)->type == EntityType::ITEM)
 			{
-				for (vector<Entity*>::const_iterator it2 = (*it)->container.begin(); it2 != (*it)->container.cend(); ++it)
+				if (Same((*it)->name, args[1]))
 				{
-					if (Same((*it)->name, args[1])) {
-						(*it)->Look();
-						return;
+					(*it)->Look();
+					return;
+				}
+				if ((*it)->container.empty() == false)
+				{
+					for (vector<Entity*>::const_iterator it2 = (*it)->container.begin(); it2 != (*it)->container.cend(); ++it2)
+					{
+						if (Same((*it2)->name, args[1]))
+						{
+							(*it2)->Look();
+							return;
+						}
 					}
 				}
 			}
@@ -42,12 +57,6 @@ void Player::Look(const vector<string>& args) const
 					return;
 				}
 			}
-		}
-
-		if (Same(args[1], "myself") || Same(args[1], "me"))
-		{
-			cout << "\n" << description << endl;
-			return;
 		}
 
 		cout << "\nCan't find this entity." << endl;

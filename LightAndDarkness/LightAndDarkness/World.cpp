@@ -85,26 +85,26 @@ World::World()
 	entities.push_back(violetBall);
 
 	//Center room
-	Item* lightPillar = new Item("Light Pillar", "A Cylindrical table made of stone with six holes on top. The holes are lined up in the "
+	Item* stonePillar = new Item("Stone Pillar", "A cylindrical table made of stone with six holes on top. The holes are lined up in the "
 		"center of the table, from left to right. Over them there is a rainbow with an angel on each side. "
 		"Under the six holes, there is an inverted rainbow with a demon on each side. Both rainbows are carved delicately in the stone.",
 		centerRoom, ItemType::COMMON);
-	Item* redHole = new Item("Red Hole", "A faint red light is coming from the seamingly endless bottom of the hole", lightPillar,
+	Item* redHole = new Item("Red Hole", "A faint red light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* orangeHole = new Item("Orange Hole", "A faint orange light is coming from the seamingly endless bottom of the hole", lightPillar,
+	Item* orangeHole = new Item("Orange Hole", "A faint orange light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* yellowHole = new Item("Yellow Hole", "A faint yellow light is coming from the seamingly endless bottom of the hole", lightPillar,
+	Item* yellowHole = new Item("Yellow Hole", "A faint yellow light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* greenHole = new Item("Green Hole", "A faint green light is coming from the seamingly endless bottom of the hole", lightPillar,
+	Item* greenHole = new Item("Green Hole", "A faint green light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* blueHole = new Item("Blue Hole", "A faint blue light is coming from the seamingly endless bottom of the hole", lightPillar,
+	Item* blueHole = new Item("Blue Hole", "A faint blue light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* violetHole = new Item("Violet Hole", "A faint violet light is coming from the seamingly endless bottom of the hole", lightPillar,
+	Item* violetHole = new Item("Violet Hole", "A faint violet light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* whiteBall = new Item("White Ball", "A ball of condensed white light", centerRoom, ItemType::WHITEBALL, false, true);
-	Item* blackBall = new Item("Black Ball", "A ball of condensed darkness", centerRoom, ItemType::BLACKBALL, false, true);
+	Item* whiteBall = new Item("White Ball", "A ball of condensed light.", centerRoom, ItemType::WHITEBALL, false, true);
+	Item* blackBall = new Item("Black Ball", "A ball of condensed darkness.", centerRoom, ItemType::BLACKBALL, false, true);
 
-	entities.push_back(lightPillar);
+	entities.push_back(stonePillar);
 	entities.push_back(redHole);
 	entities.push_back(orangeHole);
 	entities.push_back(yellowHole);
@@ -121,7 +121,7 @@ World::World()
 
 	god = new NPC("Light God", "You see a flowing creature emanating light towards all directions. Your flickering light seems "
 		"synced with the creature's.", godRoom, "\nYou hear a whispering sound coming through the light, "
-		"\"Hurry, you must bring me the light\"");
+		"\"Hurry, you must bring me the light...\"");
 
 	entities.push_back(god);
 }
