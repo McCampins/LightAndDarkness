@@ -129,7 +129,7 @@ World::World()
 
 World::~World()
 {
-	for (std::vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
+	for (std::vector<Entity*>::reverse_iterator it = entities.rbegin(); it != entities.rend(); ++it)
 	{
 		delete *it;
 	}

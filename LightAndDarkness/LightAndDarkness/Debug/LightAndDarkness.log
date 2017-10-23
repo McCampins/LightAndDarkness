@@ -1,2 +1,13 @@
-﻿  Item.cpp
-  LightAndDarkness.vcxproj -> C:\Users\marca\Documents\GitHub\LightAndDarkness\LightAndDarkness\Debug\LightAndDarkness.exe
+﻿  World.cpp
+  Room.cpp
+  Player.cpp
+  NPC.cpp
+  main.cpp
+  Item.cpp
+  Globals.cpp
+  Exit.cpp
+  Entity.cpp
+  Creature.cpp
+  Generando código...
+  LightAndDarkness.vcxproj -> C:\Users\marccc15\Documents\GitHub\LightAndDarkness\LightAndDarkness\Debug\LightAndDarkness.exe
+  LightAndDarkness.vcxproj -> C:\Users\marccc15\Documents\GitHub\LightAndDarkness\LightAndDarkness\Debug\LightAndDarkness.pdb (Partial PDB)
