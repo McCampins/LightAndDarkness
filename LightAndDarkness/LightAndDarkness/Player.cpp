@@ -50,13 +50,13 @@ void Player::Go(const std::vector<std::string>& args)
 
 	if (exit == nullptr)
 	{
-		cout << "There is no exit to the " << args[1] << "." << endl;
+		cout << "\nThere is no exit to the " << args[1] << "." << endl;
 		return;
 	}
 
 	if (exit->locked)
 	{
-		cout << "This exit is locked." << endl;
+		cout << "\nThis exit is locked." << endl;
 		return;
 	}
 
