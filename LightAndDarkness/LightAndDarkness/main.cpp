@@ -67,7 +67,7 @@ int main()
 		{
 			inputArgs.clear();
 			playerInput = "";
-			cout << "> ";
+			cout << "\n> ";
 		}
 
 		if (world->restart == true)

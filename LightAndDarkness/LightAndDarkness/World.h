@@ -5,12 +5,19 @@
 
 #include <time.h>
 
-#define STATE_TICK_FREQUENCY 60.0f
+#define STATE_CREATURE_TICK_FREQUENCY 60.0f
 #define STATE_END_LIFE_FREQUENCY 300.0f
 
 class Entity;
 class Player;
 class NPC;
+
+enum class ParseReturn
+{
+	RESTART,
+	LOOK,
+	NOTHING
+};
 
 class World
 {

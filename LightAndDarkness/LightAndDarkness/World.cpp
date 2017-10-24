@@ -40,33 +40,12 @@ World::World()
 	entities.push_back(centerRoom);
 	entities.push_back(godRoom);
 
-	//Exits
-	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true);
-	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom, false, true);
-	Exit* ex3 = new Exit("West", "East", "Narrow Passage", centerRoom, redRoom);
-	Exit* ex4 = new Exit("South", "North", "Narrow Passage", corpseRoom, centerRoom, true);
-	Exit* ex5 = new Exit("South", "North", "Light Door", centerRoom, godRoom, false, true);
-	Exit* ex6 = new Exit("East", "West", "Light Door", centerRoom, greenRoom, false, true);
-	Exit* ex7 = new Exit("North", "South", "Light Door", greenRoom, blueRoom, false, true);
-	Exit* ex8 = new Exit("South", "North", "Light Door", greenRoom, violetRoom, false, true);
-
-	entities.push_back(ex1);
-	entities.push_back(ex2);
-	entities.push_back(ex3);
-	entities.push_back(ex4);
-	entities.push_back(ex5);
-	entities.push_back(ex6);
-	entities.push_back(ex7);
-	entities.push_back(ex8);
-
 	//Color room keys
-	Item* orangeKey = new Item("Orange Key", "A small orange key", nullptr, ItemType::KEY);
 	Item* yellowKey = new Item("Yellow Key", "A small yellow key", nullptr, ItemType::KEY);
 	Item* greenKey = new Item("Green Key", "A small green key", nullptr, ItemType::KEY);
 	Item* blueKey = new Item("Blue Key", "A small blue key", nullptr, ItemType::KEY);
 	Item* violetKey = new Item("Violet Key", "A small violet key", nullptr, ItemType::KEY);
 
-	entities.push_back(orangeKey);
 	entities.push_back(yellowKey);
 	entities.push_back(greenKey);
 	entities.push_back(blueKey);
@@ -122,8 +101,36 @@ World::World()
 	Item* leftRedChest = new Item("Left Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
 	Item* centerRedChest = new Item("Center Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
 	Item* rightRedChest = new Item("Right Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
+	Item* orangeKey1 = new Item("Orange Key", "A small orange key. It was stored on the left chest", leftRedChest, ItemType::KEY, false, true);
+	Item* orangeKey2 = new Item("Orange Key", "A small orange key. It was stored on the center chest", centerRedChest, ItemType::KEY, false, true);
+	Item* orangeKey3 = new Item("Orange Key", "A small orange key. It was stored on the right chest", rightRedChest, ItemType::KEY, false, true);
 
+	entities.push_back(redTable);
+	entities.push_back(leftRedChest);
+	entities.push_back(centerRedChest);
+	entities.push_back(rightRedChest);
+	entities.push_back(orangeKey1);
+	entities.push_back(orangeKey2);
+	entities.push_back(orangeKey3);
 
+	//Exits
+	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true, orangeKey2);
+	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom, false, true);
+	Exit* ex3 = new Exit("West", "East", "Narrow Passage", centerRoom, redRoom);
+	Exit* ex4 = new Exit("South", "North", "Narrow Passage", corpseRoom, centerRoom, true);
+	Exit* ex5 = new Exit("South", "North", "Light Door", centerRoom, godRoom, false, true);
+	Exit* ex6 = new Exit("East", "West", "Light Door", centerRoom, greenRoom, false, true);
+	Exit* ex7 = new Exit("North", "South", "Light Door", greenRoom, blueRoom, false, true);
+	Exit* ex8 = new Exit("South", "North", "Light Door", greenRoom, violetRoom, false, true);
+
+	entities.push_back(ex1);
+	entities.push_back(ex2);
+	entities.push_back(ex3);
+	entities.push_back(ex4);
+	entities.push_back(ex5);
+	entities.push_back(ex6);
+	entities.push_back(ex7);
+	entities.push_back(ex8);
 
 	//Player
 	player = new Player("Light corpse", "You are a floating smoke-like creature, with a small light flickering inside you.",
@@ -215,14 +222,46 @@ bool World::ParseCommand(std::vector<std::string>& args)
 			}
 			player->Go(args);
 		}
+		if (Same(args[0], "open"))
+		{
+			player->Open(args);
+		}
+		if (Same(args[0], "take"))
+		{
+			player->Take(args);
+		}
 		break;
 	case 3:
 		if (Same(args[0], "look"))
 		{
-			args[1] = args[1] + " " + args[2];
 			player->Look(args);
 		}
+		if (Same(args[0], "open"))
+		{
+			player->Open(args);
+		}
+		if (Same(args[0], "take"))
+		{
+			player->Take(args);
+		}
 		break;
+	case 4:
+		if (Same(args[0], "open"))
+		{
+			player->Open(args);
+		}
+		break;
+	case 5:
+		if (Same(args[0], "open"))
+		{
+			player->Open(args);
+		}
+		break;
+	case 6:
+		if (Same(args[0], "open"))
+		{
+			player->Open(args);
+		}
 	default:
 		ret = false;
 	}
@@ -234,7 +273,7 @@ void World::GameLoop()
 {
 	clock_t now = clock();
 
-	if ((now - tickTimer) / CLOCKS_PER_SEC > STATE_TICK_FREQUENCY)
+	if ((now - tickTimer) / CLOCKS_PER_SEC > STATE_CREATURE_TICK_FREQUENCY)
 	{
 		for (vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
 			if ((*it)->type == EntityType::PLAYER || (*it)->type == EntityType::NPC)

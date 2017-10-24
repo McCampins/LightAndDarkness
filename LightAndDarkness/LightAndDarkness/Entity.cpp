@@ -2,6 +2,7 @@
 #include <algorithm>
 
 #include "Entity.h"
+#include "Item.h"
 #include "Globals.h"
 
 using namespace std;
@@ -33,7 +34,7 @@ void Entity::Tick()
 void Entity::ChangeParentTo(Entity* newParent)
 {
 	if (parent != nullptr)
-		container.erase(std::remove(container.begin(), container.end(), this), container.end());
+		parent->container.erase(std::remove(parent->container.begin(), parent->container.end(), this), parent->container.end());
 
 	parent = newParent;
 
@@ -70,7 +71,22 @@ Entity* Entity::Find(const string& name, EntityType type) const
 		if ((*it)->type == type)
 		{
 			if (Same((*it)->name, name))
-				return *it;
+				if (type == EntityType::ITEM)
+				{
+					Item* item = (Item*) *it;
+					if (item->hidden == false)
+						return *it;
+				}
+				else
+				{
+					return *it;
+				}
+		}
+		if ((*it)->container.empty() == false)
+		{
+			Entity* result = (*it)->Find(name, type);
+			if (result != nullptr)
+				return result;
 		}
 	}
 

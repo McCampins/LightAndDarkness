@@ -1,13 +1,2 @@
-﻿  World.cpp
-  main.cpp
-  Generando código...
-  Omitiendo... (no se detectaron cambios relevantes)
-  Room.cpp
-  Player.cpp
-  NPC.cpp
-  Item.cpp
-  Globals.cpp
-  Exit.cpp
-  Entity.cpp
-  Creature.cpp
+﻿  Player.cpp
   LightAndDarkness.vcxproj -> C:\Users\marca\Documents\GitHub\LightAndDarkness\LightAndDarkness\Debug\LightAndDarkness.exe

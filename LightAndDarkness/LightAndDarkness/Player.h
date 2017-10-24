@@ -11,6 +11,8 @@ public:
 
 	void Look(const std::vector<std::string>& args) const;
 	void Go(const std::vector<std::string>& args);
+	void Open(const std::vector<std::string>& args);
+	void Take(const std::vector<std::string>& args);
 };
 
 #endif
