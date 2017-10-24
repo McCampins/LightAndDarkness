@@ -114,7 +114,7 @@ World::World()
 	entities.push_back(orangeKey3);
 
 	//Orange Room
-
+	Item* pot = new Item("Flower Pot", "A simple ceramic flower pot, full of fertile soil.", orangeRoom, ItemType::COMMON);
 
 	//Exits
 	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true, orangeKey2);
