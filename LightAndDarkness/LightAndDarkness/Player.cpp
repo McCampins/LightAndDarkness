@@ -265,9 +265,12 @@ void Player::Unlock(const std::vector<std::string>& args)
 		if (Same(args[2], "with"))
 		{
 			exit = (Exit*)GetRoom()->GetExit(args[1]);
-			key = (Item*)GetRoom()->Find(args[3] + " " + args[4], EntityType::ITEM);
+			key = (Item*)Find(args[3] + " " + args[4], EntityType::ITEM);
 			keyName = args[3] + " " + args[4];
 		}
+		break;
+	default:
+		return; //Error, should never happen
 	}
 
 	if (exit != nullptr)
@@ -276,17 +279,17 @@ void Player::Unlock(const std::vector<std::string>& args)
 		{
 			if (key == nullptr)
 			{
-				cout << "\nYou don't have the item " << keyName << endl;
+				cout << "\nYou don't have the key " << keyName << endl;
 				return;
 			}
 			if (exit->key == key)
 			{
-				cout << "\nYou open the exit to the " << args[1] <<  "with the " << keyName << ". You can now go through it." << endl;
+				cout << "\nYou open the exit to the " << args[1] <<  " with the " << keyName << ". You can now go through it." << endl;
 				exit->locked = false;
 			}
 			else
 			{
-				cout << "\nThe " << keyName << " is not the key for the exit to the " << args[1] << "." << endl;
+				cout << "\This " << keyName << " is not the key for the exit to the " << args[1] << "." << endl;
  			}
 		}
 		else

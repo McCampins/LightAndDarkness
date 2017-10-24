@@ -17,7 +17,7 @@ World::World()
 
 	//Rooms
 	Room* redRoom = new Room("Red Room", "You are inside a small room, dimly lighted with one red lamp. When you enter you hear a faint "
-		"echo through the light: \"No mind can wander too far, a sense of balance must be met to advance...\"");
+		"echo through the light: \"No mind can ever wander too far, a sense of balance must be met in order to advance...\"");
 	Room* orangeRoom = new Room("Orange Room", "You are inside a small room, dimly lighted with two orange lamps.");
 	Room* yellowRoom = new Room("Yellow Room", "You are inside a small room, dimly lighted with three yellow lamps.");
 	Room* greenRoom = new Room("Green Room", "You are inside a small room, dimly ligthed with four green lamps.");
@@ -101,9 +101,9 @@ World::World()
 	Item* leftRedChest = new Item("Left Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
 	Item* centerRedChest = new Item("Center Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
 	Item* rightRedChest = new Item("Right Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
-	Item* orangeKey1 = new Item("Orange Key", "A small orange key. It was stored on the left chest", leftRedChest, ItemType::KEY, false, true, true);
-	Item* orangeKey2 = new Item("Orange Key", "A small orange key. It was stored on the center chest", centerRedChest, ItemType::KEY, false, true, true);
-	Item* orangeKey3 = new Item("Orange Key", "A small orange key. It was stored on the right chest", rightRedChest, ItemType::KEY, false, true, true);
+	Item* orangeKey1 = new Item("Left Key", "A small orange key. It was stored on the left chest", leftRedChest, ItemType::KEY, false, true, true);
+	Item* orangeKey2 = new Item("Center Key", "A small orange key. It was stored on the center chest", centerRedChest, ItemType::KEY, false, true, true);
+	Item* orangeKey3 = new Item("Right Key", "A small orange key. It was stored on the right chest", rightRedChest, ItemType::KEY, false, true, true);
 
 	entities.push_back(redTable);
 	entities.push_back(leftRedChest);
@@ -112,6 +112,9 @@ World::World()
 	entities.push_back(orangeKey1);
 	entities.push_back(orangeKey2);
 	entities.push_back(orangeKey3);
+
+	//Orange Room
+
 
 	//Exits
 	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true, orangeKey2);
@@ -222,13 +225,17 @@ bool World::ParseCommand(std::vector<std::string>& args)
 			}
 			player->Go(args);
 		}
-		if (Same(args[0], "open"))
+		else if (Same(args[0], "open"))
 		{
 			player->Open(args);
 		}
-		if (Same(args[0], "take"))
+		else if (Same(args[0], "take"))
 		{
 			player->Take(args);
+		}
+		else
+		{
+			ret = false;
 		}
 		break;
 	case 3:
@@ -236,13 +243,17 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		{
 			player->Look(args);
 		}
-		if (Same(args[0], "open"))
+		else if (Same(args[0], "open"))
 		{
 			player->Open(args);
 		}
-		if (Same(args[0], "take"))
+		else if (Same(args[0], "take"))
 		{
 			player->Take(args);
+		}
+		else
+		{
+			ret = false;
 		}
 		break;
 	case 4:
@@ -250,9 +261,13 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		{
 			player->Open(args);
 		}
-		if (Same(args[0], "unlock"))
+		else if (Same(args[0], "unlock"))
 		{
 			player->Unlock(args);
+		}
+		else
+		{
+			ret = false;
 		}
 		break;
 	case 5:
@@ -260,9 +275,13 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		{
 			player->Open(args);
 		}
-		if (Same(args[0], "unlock"))
+		else if (Same(args[0], "unlock"))
 		{
 			player->Unlock(args);
+		}
+		else
+		{
+			ret = false;
 		}
 		break;
 	case 6:
@@ -270,6 +289,11 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		{
 			player->Open(args);
 		}
+		else
+		{
+			ret = false;
+		}
+		break;
 	default:
 		ret = false;
 	}
@@ -277,7 +301,7 @@ bool World::ParseCommand(std::vector<std::string>& args)
 	return ret;
 }
 
-void World::GameLoop() 
+void World::GameLoop()
 {
 	clock_t now = clock();
 
