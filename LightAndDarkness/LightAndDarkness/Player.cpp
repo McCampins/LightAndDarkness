@@ -198,8 +198,15 @@ void Player::Take(const std::vector<std::string>& args)
 		{
 			if (item->hidden == false)
 			{
-				cout << "\nYou take the " << item->name << "." << endl;
-				item->ChangeParentTo(this);
+				if (item->takeable == true)
+				{
+					cout << "\nYou take the " << item->name << "." << endl;
+					item->ChangeParentTo(this);
+				}
+				else
+				{
+					cout << "\nYou can't take the " << item->name << "." << endl;
+				}
 			}
 			return;
 		}
@@ -213,8 +220,15 @@ void Player::Take(const std::vector<std::string>& args)
 		{
 			if (item->hidden == false)
 			{
-				cout << "\nYou take the " << item->name << "." << endl;
-				item->ChangeParentTo(this);
+				if (item->takeable == true)
+				{
+					cout << "\nYou take the " << item->name << "." << endl;
+					item->ChangeParentTo(this);
+				}
+				else
+				{
+					cout << "\nYou can't take the " << item->name << "." << endl;
+				}
 			}
 			return;
 		}

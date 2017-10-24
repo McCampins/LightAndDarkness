@@ -4,8 +4,8 @@
 
 using namespace std;
 
-Item::Item(const char * name, const char * description, Entity * parent, ItemType itemType, bool locked, bool hidden, Entity* key) :
-	Entity(name, description, parent), itemType(itemType), contentsLocked(locked), hidden(hidden), key(key)
+Item::Item(const char * name, const char * description, Entity * parent, ItemType itemType, bool locked, bool hidden, bool takeable, Entity* key) :
+	Entity(name, description, parent), itemType(itemType), contentsLocked(locked), hidden(hidden), takeable(takeable), key(key)
 {
 	type = EntityType::ITEM;
 }
