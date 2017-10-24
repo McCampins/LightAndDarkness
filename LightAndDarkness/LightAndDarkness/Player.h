@@ -13,6 +13,7 @@ public:
 	void Go(const std::vector<std::string>& args);
 	void Open(const std::vector<std::string>& args);
 	void Take(const std::vector<std::string>& args);
+	void Unlock(const std::vector<std::string>& args);
 };
 
 #endif

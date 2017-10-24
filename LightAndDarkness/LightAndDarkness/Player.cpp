@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "World.h"
 #include "Player.h"
@@ -181,6 +182,10 @@ void Player::Open(const std::vector<std::string>& args)
 			cout << "\nThis item is now open. You can now look at its contents." << endl;
 		}
 	}
+	else
+	{
+		cout << "\nThis item doesn't exist." << endl;
+	}
 }
 
 void Player::Take(const std::vector<std::string>& args)
@@ -237,5 +242,61 @@ void Player::Take(const std::vector<std::string>& args)
 		return;
 	default:
 		return; //Error, should never happen
+	}
+}
+
+void Player::Unlock(const std::vector<std::string>& args)
+{
+	Exit* exit = nullptr;
+	Item* key = nullptr;
+	string keyName;
+
+	switch (args.size())
+	{
+	case 4:
+		if (Same(args[2], "with"))
+		{
+			exit = (Exit*)GetRoom()->GetExit(args[1]);
+			key = (Item*)Find(args[3], EntityType::ITEM);
+			keyName = args[3];
+		}
+		break;
+	case 5:
+		if (Same(args[2], "with"))
+		{
+			exit = (Exit*)GetRoom()->GetExit(args[1]);
+			key = (Item*)GetRoom()->Find(args[3] + " " + args[4], EntityType::ITEM);
+			keyName = args[3] + " " + args[4];
+		}
+	}
+
+	if (exit != nullptr)
+	{
+		if (exit->locked == true)
+		{
+			if (key == nullptr)
+			{
+				cout << "\nYou don't have the item " << keyName << endl;
+				return;
+			}
+			if (exit->key == key)
+			{
+				cout << "\nYou open the exit to the " << args[1] <<  "with the " << keyName << ". You can now go through it." << endl;
+				exit->locked = false;
+			}
+			else
+			{
+				cout << "\nThe " << keyName << " is not the key for the exit to the " << args[1] << "." << endl;
+ 			}
+		}
+		else
+		{
+			
+			cout << "\nThe exit to the " << keyName << " is not locked." << endl;
+		}
+	}
+	else
+	{
+		cout << "\nThere is no exit to the " << args[1] << endl;
 	}
 }

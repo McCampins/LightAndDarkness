@@ -41,10 +41,10 @@ World::World()
 	entities.push_back(godRoom);
 
 	//Color room keys
-	Item* yellowKey = new Item("Yellow Key", "A small yellow key", nullptr, ItemType::KEY);
-	Item* greenKey = new Item("Green Key", "A small green key", nullptr, ItemType::KEY);
-	Item* blueKey = new Item("Blue Key", "A small blue key", nullptr, ItemType::KEY);
-	Item* violetKey = new Item("Violet Key", "A small violet key", nullptr, ItemType::KEY);
+	Item* yellowKey = new Item("Yellow Key", "A small yellow key", nullptr, ItemType::KEY, false, true, true);
+	Item* greenKey = new Item("Green Key", "A small green key", nullptr, ItemType::KEY, false, true, true);
+	Item* blueKey = new Item("Blue Key", "A small blue key", nullptr, ItemType::KEY, false, true, true);
+	Item* violetKey = new Item("Violet Key", "A small violet key", nullptr, ItemType::KEY, false, true, true);
 
 	entities.push_back(yellowKey);
 	entities.push_back(greenKey);
@@ -52,12 +52,12 @@ World::World()
 	entities.push_back(violetKey);
 
 	//Light balls given in each color room
-	Item* redBall = new Item("Red Ball", "A ball of condensed red light", nullptr, ItemType::LIGHTBALL);
-	Item* orangeBall = new Item("Orange Ball", "A ball of condensed orange light", nullptr, ItemType::LIGHTBALL);
-	Item* yellowBall = new Item("Yellow Ball", "A ball of condensed yellow light", nullptr, ItemType::LIGHTBALL);
-	Item* greenBall = new Item("Green Ball", "A ball of condensed green light", nullptr, ItemType::LIGHTBALL);
-	Item* blueBall = new Item("Blue Ball", "A ball of condensed blue light", nullptr, ItemType::LIGHTBALL);
-	Item* violetBall = new Item("Violet Ball", "A ball of condensed violet light", nullptr, ItemType::LIGHTBALL);
+	Item* redBall = new Item("Red Ball", "A ball of condensed red light", nullptr, ItemType::LIGHTBALL, false, true, true);
+	Item* orangeBall = new Item("Orange Ball", "A ball of condensed orange light", nullptr, ItemType::LIGHTBALL, false, true, true);
+	Item* yellowBall = new Item("Yellow Ball", "A ball of condensed yellow light", nullptr, ItemType::LIGHTBALL, false, true, true);
+	Item* greenBall = new Item("Green Ball", "A ball of condensed green light", nullptr, ItemType::LIGHTBALL, false, true, true);
+	Item* blueBall = new Item("Blue Ball", "A ball of condensed blue light", nullptr, ItemType::LIGHTBALL, false, true, true);
+	Item* violetBall = new Item("Violet Ball", "A ball of condensed violet light", nullptr, ItemType::LIGHTBALL, false, true, true);
 
 	entities.push_back(redBall);
 	entities.push_back(orangeBall);
@@ -83,8 +83,8 @@ World::World()
 		ItemType::COMMON);
 	Item* violetHole = new Item("Violet Hole", "A faint violet light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* whiteBall = new Item("White Ball", "A ball of condensed light.", centerRoom, ItemType::WHITEBALL, false, true);
-	Item* blackBall = new Item("Black Ball", "A ball of condensed darkness.", centerRoom, ItemType::BLACKBALL, false, true);
+	Item* whiteBall = new Item("White Ball", "A ball of condensed light.", centerRoom, ItemType::WHITEBALL, false, true, true);
+	Item* blackBall = new Item("Black Ball", "A ball of condensed darkness.", centerRoom, ItemType::BLACKBALL, false, true, true);
 
 	entities.push_back(stonePillar);
 	entities.push_back(redHole);
@@ -101,9 +101,9 @@ World::World()
 	Item* leftRedChest = new Item("Left Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
 	Item* centerRedChest = new Item("Center Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
 	Item* rightRedChest = new Item("Right Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
-	Item* orangeKey1 = new Item("Orange Key", "A small orange key. It was stored on the left chest", leftRedChest, ItemType::KEY, false, true);
-	Item* orangeKey2 = new Item("Orange Key", "A small orange key. It was stored on the center chest", centerRedChest, ItemType::KEY, false, true);
-	Item* orangeKey3 = new Item("Orange Key", "A small orange key. It was stored on the right chest", rightRedChest, ItemType::KEY, false, true);
+	Item* orangeKey1 = new Item("Orange Key", "A small orange key. It was stored on the left chest", leftRedChest, ItemType::KEY, false, true, true);
+	Item* orangeKey2 = new Item("Orange Key", "A small orange key. It was stored on the center chest", centerRedChest, ItemType::KEY, false, true, true);
+	Item* orangeKey3 = new Item("Orange Key", "A small orange key. It was stored on the right chest", rightRedChest, ItemType::KEY, false, true, true);
 
 	entities.push_back(redTable);
 	entities.push_back(leftRedChest);
@@ -250,11 +250,19 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		{
 			player->Open(args);
 		}
+		if (Same(args[0], "unlock"))
+		{
+			player->Unlock(args);
+		}
 		break;
 	case 5:
 		if (Same(args[0], "open"))
 		{
 			player->Open(args);
+		}
+		if (Same(args[0], "unlock"))
+		{
+			player->Unlock(args);
 		}
 		break;
 	case 6:
