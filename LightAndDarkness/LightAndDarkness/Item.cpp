@@ -163,4 +163,8 @@ void Item::Tick()
 			}
 		}
 	}
+	if (Same(name, "Stone Pillar"))
+	{
+
+	}
 }

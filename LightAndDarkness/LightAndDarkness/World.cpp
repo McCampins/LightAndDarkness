@@ -26,10 +26,12 @@ World::World()
 		"echo through the light: \"Quid pro quo...\"");
 	Room* blueRoom = new Room("Blue Room", "You are inside a small room, dimly lighted with five blue lamps. When you enter you hear a faint "
 		"echo through the light: \"We all desire what we don't have...\"");
-	Room* violetRoom = new Room("Violet Room", "You are inside a small room, dimly lighted with six violet lamps.");
+	Room* violetRoom = new Room("Violet Room", "You are inside a small room, dimly lighted with six violet lamps. When you enter you hear a faint "
+		"echo through the light: \"In the chaos of numbers, choose the ones that follow triangles...\"");
 
 	Room* corpseRoom = new Room("Corpse Room", "You are inside a wide room, empty and dark. You feel like you just woke up. Next to you "
-		"you see dozens of other creatures like you, all laying motionless on the ground.");
+		"you see dozens of other creatures like you, all laying motionless on the ground. You hear a voice: \"All of them tried, none made it. "
+		"Bring me the light mortal, or die trying!\"");
 	Room* centerRoom = new Room("Center Room", "You are inside a large circular room. The room is well lit and white clean.");
 	Room* godRoom = new Room("God Room", "You are inside a huge room, you can barely see its end. You feel raw power emanating from "
 		"its center, where a flowing creature stands. You hear it whispering \"Come closer, bring me the light...\"");
@@ -43,16 +45,10 @@ World::World()
 	entities.push_back(corpseRoom);
 	entities.push_back(centerRoom);
 	entities.push_back(godRoom);
-	
-	Item* violetBall = new Item("Violet Ball", "A ball of condensed violet light", nullptr, ItemType::LIGHTBALL, false, true, true);
-
-	entities.push_back(violetBall);
 
 	//Center room
 	Item* stonePillar = new Item("Stone Pillar", "A cylindrical table made of stone with six holes on top. The holes are lined up in the "
-		"center of the table, from left to right. Over them there is a rainbow with an angel on each side. "
-		"Under the six holes, there is an inverted rainbow with a demon on each side. Both rainbows are carved delicately in the stone.",
-		centerRoom, ItemType::COMMON);
+		"center of the table, from left to right. Over them there is a rainbow with an angel on each side. ", centerRoom, ItemType::COMMON);
 	Item* redHole = new Item("Red Hole", "A faint red light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
 	Item* orangeHole = new Item("Orange Hole", "A faint orange light is coming from the seamingly endless bottom of the hole.", stonePillar,
@@ -65,8 +61,7 @@ World::World()
 		ItemType::COMMON);
 	Item* violetHole = new Item("Violet Hole", "A faint violet light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* whiteBall = new Item("White Ball", "A ball of condensed light.", centerRoom, ItemType::WHITEBALL, false, true, true);
-	Item* blackBall = new Item("Black Ball", "A ball of condensed darkness.", centerRoom, ItemType::BLACKBALL, false, true, true);
+	Item* whiteBall = new Item("White Ball", "A ball of condensed light.", centerRoom, ItemType::WHITEBALL, false, false, true, true);
 
 	entities.push_back(stonePillar);
 	entities.push_back(redHole);
@@ -76,7 +71,6 @@ World::World()
 	entities.push_back(blueHole);
 	entities.push_back(violetHole);
 	entities.push_back(whiteBall);
-	entities.push_back(blackBall);
 
 	//Red Room
 	Item* redTable = new Item("Red Table", "A wooden old table, standing in the middle of the room.", redRoom, ItemType::COMMON);
@@ -162,15 +156,57 @@ World::World()
 	entities.push_back(violetKey);
 	entities.push_back(blueBall);
 
+	//Violet Room
+	Item* violetChest = new Item("Violet Chest", "A wooden chest painted violet, no lock can be seen. A number one is painted on top", 
+		violetRoom, ItemType::COMMON);
+	//Depth one
+	Item* box2 = new Item("Box 2", "A small box with the number 2 painted on the top", violetChest, ItemType::COMMON, false, true);
+	Item* box3 = new Item("Box 3", "A small box with the number 3 painted on the top", violetChest, ItemType::COMMON, false, true);
+	//Depth two
+	//box1
+	Item* box4 = new Item("Box 4", "A small box with the number 4 painted on the top", box3, ItemType::COMMON, false, true);
+	Item* box5 = new Item("Box 5", "A small box with the number 5 painted on the top", box3, ItemType::COMMON, false, true);
+	Item* box6 = new Item("Box 6", "A small box with the number 6 painted on the top", box3, ItemType::COMMON, false, true);
+	//box2
+	Item* box7 = new Item("Box 7", "A small box with the number 7 painted on the top", box2, ItemType::COMMON, false, true);
+	Item* box8 = new Item("Box 8", "A small box with the number 8 painted on the top", box2, ItemType::COMMON, false, true);
+	Item* box9 = new Item("Box 9", "A small box with the number 9 painted on the top", box2, ItemType::COMMON, false, true);
+	//Depth three
+	Item* box10 = new Item("Box 10", "A small box with the number 10 painted on the top", box6, ItemType::COMMON, false, true);
+	Item* box11 = new Item("Box 11", "A small box with the number 11 painted on the top", box4, ItemType::COMMON, false, true);
+	Item* box12 = new Item("Box 12", "A small box with the number 12 painted on the top", box5, ItemType::COMMON, false, true);
+	Item* box13 = new Item("Box 13", "A small box with the number 13 painted on the top", box7, ItemType::COMMON, false, true);
+	Item* box14 = new Item("Box 14", "A small box with the number 14 painted on the top", box8, ItemType::COMMON, false, true);
+	Item* box15 = new Item("Box 15", "A small box with the number 15 painted on the top", box9, ItemType::COMMON, false, true);
+
+	Item* violetBall = new Item("Violet Ball", "A ball of condensed violet light", box10, ItemType::LIGHTBALL, false, true, false, true);
+
+	entities.push_back(violetChest);
+	entities.push_back(box2);
+	entities.push_back(box3);
+	entities.push_back(box4);
+	entities.push_back(box5);
+	entities.push_back(box6);
+	entities.push_back(box7);
+	entities.push_back(box8);
+	entities.push_back(box9);
+	entities.push_back(box10);
+	entities.push_back(box11);
+	entities.push_back(box12);
+	entities.push_back(box13);
+	entities.push_back(box14);
+	entities.push_back(box15);
+	entities.push_back(violetBall);
+
 	//Exits
 	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true, orangeKey2);
 	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom, false, true, yellowKey);
 	Exit* ex3 = new Exit("West", "East", "Narrow Passage", centerRoom, redRoom);
 	Exit* ex4 = new Exit("South", "North", "Narrow Passage", corpseRoom, centerRoom, true);
-	Exit* ex5 = new Exit("South", "North", "Light Door", centerRoom, godRoom, false, true);
+	Exit* ex5 = new Exit("South", "North", "Light Door", centerRoom, godRoom, false, true, whiteBall);
 	Exit* ex6 = new Exit("East", "West", "Light Door", centerRoom, greenRoom, false, true, greenKey);
 	Exit* ex7 = new Exit("North", "South", "Light Door", greenRoom, blueRoom, false, true, blueKey);
-	Exit* ex8 = new Exit("South", "North", "Light Door", greenRoom, violetRoom, false, true);
+	Exit* ex8 = new Exit("South", "North", "Light Door", greenRoom, violetRoom, false, true, violetKey);
 
 	entities.push_back(ex1);
 	entities.push_back(ex2);
