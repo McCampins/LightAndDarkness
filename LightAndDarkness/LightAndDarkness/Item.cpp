@@ -168,99 +168,126 @@ void Item::Tick()
 	{
 		Item* whiteBall = (Item*)parent->Find("White Ball", EntityType::ITEM);
 
-		if (whiteBall->notVisible == true)
+		if (whiteBall != nullptr)
 		{
-			bool colorsInPlace = true;
-
-			//Red hole
-			Item* item = (Item*)container.at(0);
-			if (item->container.size() == 1)
+			if (whiteBall->notVisible == true)
 			{
-				Item* ball = (Item*)item->container.at(0);
-				if (Same(ball->name, "Red Ball") == false)
+				bool colorsInPlace = true;
+
+				//Red hole
+				Item* item = (Item*)container.at(0);
+				if (item->container.size() == 1)
+				{
+					Item* ball = (Item*)item->container.at(0);
+					if (Same(ball->name, "Red Ball") == false)
+					{
+						colorsInPlace = false;
+					}
+				}
+				else
 				{
 					colorsInPlace = false;
 				}
-			}
 
-			//Orange hole
-			if (colorsInPlace)
-			{
-				item = (Item*)container.at(1);
-				if (item->container.size() == 1)
+				//Orange hole
+				if (colorsInPlace)
 				{
-					Item* ball = (Item*)item->container.at(0);
-					if (Same(ball->name, "Orange Ball") == false)
+					item = (Item*)container.at(1);
+					if (item->container.size() == 1)
+					{
+						Item* ball = (Item*)item->container.at(0);
+						if (Same(ball->name, "Orange Ball") == false)
+						{
+							colorsInPlace = false;
+						}
+					}
+					else
 					{
 						colorsInPlace = false;
 					}
 				}
-			}
 
-			//Yellow hole
-			if (colorsInPlace)
-			{
-				item = (Item*)container.at(2);
-				if (item->container.size() == 1)
+				//Yellow hole
+				if (colorsInPlace)
 				{
-					Item* ball = (Item*)item->container.at(0);
-					if (Same(ball->name, "Yellow Ball") == false)
+					item = (Item*)container.at(2);
+					if (item->container.size() == 1)
+					{
+						Item* ball = (Item*)item->container.at(0);
+						if (Same(ball->name, "Yellow Ball") == false)
+						{
+							colorsInPlace = false;
+						}
+					}
+					else
 					{
 						colorsInPlace = false;
 					}
 				}
-			}
 
-			//Green hole
-			if (colorsInPlace)
-			{
-				item = (Item*)container.at(3);
-				if (item->container.size() == 1)
+				//Green hole
+				if (colorsInPlace)
 				{
-					Item* ball = (Item*)item->container.at(0);
-					if (Same(ball->name, "Green Ball") == false)
+					item = (Item*)container.at(3);
+					if (item->container.size() == 1)
+					{
+						Item* ball = (Item*)item->container.at(0);
+						if (Same(ball->name, "Green Ball") == false)
+						{
+							colorsInPlace = false;
+						}
+					}
+					else
 					{
 						colorsInPlace = false;
 					}
 				}
-			}
 
-			//Blue hole
-			if (colorsInPlace)
-			{
-				item = (Item*)container.at(4);
-				if (item->container.size() == 1)
+				//Blue hole
+				if (colorsInPlace)
 				{
-					Item* ball = (Item*)item->container.at(0);
-					if (Same(ball->name, "Blue Ball") == false)
+					item = (Item*)container.at(4);
+					if (item->container.size() == 1)
+					{
+						Item* ball = (Item*)item->container.at(0);
+						if (Same(ball->name, "Blue Ball") == false)
+						{
+							colorsInPlace = false;
+						}
+					}
+					else
 					{
 						colorsInPlace = false;
 					}
 				}
-			}
 
-			//Violet hole
-			if (colorsInPlace)
-			{
-				item = (Item*)container.at(5);
-				if (item->container.size() == 1)
+				//Violet hole
+				if (colorsInPlace)
 				{
-					Item* ball = (Item*)item->container.at(0);
-					if (Same(ball->name, "Violet Ball") == false)
+					item = (Item*)container.at(5);
+					if (item->container.size() == 1)
+					{
+						Item* ball = (Item*)item->container.at(0);
+						if (Same(ball->name, "Violet Ball") == false)
+						{
+							colorsInPlace = false;
+						}
+					}
+					else
 					{
 						colorsInPlace = false;
 					}
 				}
-			}
 
-			if (colorsInPlace)
-			{
-				cout << "\nAll the holes from the stone pillar shine brighly, all the colors collapsing onto each other. The intensity of the light "
-					"keeps growing stronger, until finally it explodes and leaves a small object behind." << endl;
+				if (colorsInPlace)
+				{
+					cout << "\nAll the holes from the stone pillar shine brighly, all the colors collapsing onto each other. The intensity of the light "
+						"keeps growing stronger, until finally it explodes and leaves a small object behind." << endl;
 
-				whiteBall->notVisible = false;
+					whiteBall->notVisible = false;
 
-				cout << "\n> ";
+					cout << "\n> ";
+				}
 			}
 		}
 	}

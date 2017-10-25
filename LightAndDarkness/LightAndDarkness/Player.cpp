@@ -386,6 +386,7 @@ void Player::Drop(const std::vector<std::string>& args)
 			droppedItem = (Item*)Find(args[1] + " " + args[2], EntityType::ITEM);
 			container = (Item*)GetRoom()->Find(args[4] + " " + args[5], EntityType::ITEM);
 		}
+		break;
 	default:
 		return; //Error, should never happen
 	}
