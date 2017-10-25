@@ -104,49 +104,62 @@ void Item::Tick()
 		if (fed == true)
 		{
 			Item* item = (Item*)parent->Find("Green Ball", EntityType::ITEM);
-			if (item->notVisible == true)
+			if (item != nullptr)
 			{
-				cout << "\nThe Crocodile, thankful for its meal, glows briefly. Two objects, invisible before, now appear in the room." << endl;
+				if (item->notVisible == true)
+				{
+					cout << "\nThe Crocodile, thankful for its meal, glows briefly. Two objects, invisible before, now appear in the room." << endl;
 
-				item->notVisible = false;
-				item = (Item*)parent->Find("Blue Key", EntityType::ITEM);
-				item->notVisible = false;
+					item->notVisible = false;
+					item = (Item*)parent->Find("Blue Key", EntityType::ITEM);
+					item->notVisible = false;
 
-				cout << "\n> ";
+					cout << "\n> ";
+				}
 			}
 		}
 		else
 		{
 			Item* item = (Item*)parent->Find("Green Ball", EntityType::ITEM);
-			if (item->notVisible == false)
+			if (item != nullptr)
 			{
-				cout << "\nThe Crocodile, no fool, glows briefly again. The two objects disappear again." << endl;
+				if (item->notVisible == false)
+				{
+					cout << "\nThe Crocodile, no fool, glows briefly again. The two objects disappear again." << endl;
 
-				item->notVisible = true;
-				item = (Item*)parent->Find("Blue Key", EntityType::ITEM);
-				item->notVisible = true;
+					item->notVisible = true;
+					item = (Item*)parent->Find("Blue Key", EntityType::ITEM);
+					item->notVisible = true;
 
-				cout << "\n> ";
+					cout << "\n> ";
+				}
 			}
 		}
 	}
 	if (Same(name, "Left Statue"))
 	{
-		if (container.empty() == true)
+		if (container.size() == 1) //Just the hidden tear
 		{
 			description = "Huge statue made of stone. It's looking down with a concerned expression.";
 		}
 
 		Item* rightStatue = (Item*)parent->Find("Right Statue", EntityType::ITEM);
-		if (rightStatue->container.size() == 3)
-		{
-			rightStatue->description = "Huge statue made of stone. It's looking to the left with a smirk on his face";
-
-			Item* item = (Item*)Find("Tear", EntityType::ITEM);
-			if (item->notVisible == true)
+		if (rightStatue != nullptr) {
+			if (rightStatue->container.size() == 3)
 			{
-				cout << "\nThe Left Statue has lost all his belongings to the Right Statue. Something is coming out from his eye." << endl;
-				item->notVisible = false;
+				rightStatue->description = "Huge statue made of stone. It's looking to the left with a smirk on his face";
+
+				Item* item = (Item*)Find("Tear", EntityType::ITEM);
+				if (item != nullptr)
+				{
+					if (item->notVisible == true)
+					{
+						cout << "\nThe Left Statue has lost all his belongings to the Right Statue. Something is coming out from his eye." << endl;
+						item->notVisible = false;
+
+						cout << "\n> ";
+					}
+				}
 			}
 		}
 	}
