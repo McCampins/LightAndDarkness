@@ -325,12 +325,6 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		{
 			player->Drop(args);
 		}
-		else if (Same(args[0], "touch"))
-		{
-			player->Touch(args);
-			if (Same(args[1], "god"))
-				end = true;
-		}
 		else
 		{
 			ret = false;
@@ -352,6 +346,12 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		else if (Same(args[0], "drop"))
 		{
 			player->Drop(args);
+		}
+		else if (Same(args[0], "touch"))
+		{
+			player->Touch(args);
+			if (Same(args[1], "light") && Same(args[2], "god"))
+				end = true;
 		}
 		else
 		{

@@ -423,7 +423,7 @@ void Player::Drop(const std::vector<std::string>& args)
 
 void Player::Touch(const std::vector<std::string>& args)
 {
-	if (args.size() == 2) //Should always happen
+	if (args.size() == 3) //Should always happen
 	{
 		list<Entity*> npcList;
 		GetRoom()->FindAll(EntityType::NPC, npcList);
