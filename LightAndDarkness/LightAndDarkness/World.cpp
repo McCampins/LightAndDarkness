@@ -116,7 +116,8 @@ World::World()
 
 	//Orange Room
 	Item* flowerPot = new Item("Flower Pot", "A simple ceramic flower pot, full of fertile soil.", orangeRoom, ItemType::COMMON);
-	Item* bucket = new Item("Bucket", "A wooden bucket full of water", orangeRoom, ItemType::COMMON, false, false, true);
+	Item* bucket = new Item("Bucket", "A wooden bucket full of water", orangeRoom, ItemType::COMMON);
+	Item* water = new Item("Water", "Some water", bucket, ItemType::COMMON, false, false, true);
 	Item* orangeTable = new Item("Orange Table", "A wooden old table, standing in the middle of the room.", orangeRoom, ItemType::COMMON);
 	Item* appleSeeds = new Item("Apple Seeds", "A few apple seeds.", orangeTable, ItemType::COMMON, false, false, true);
 	Item* lemonSeeds = new Item("Lemon Seeds", "A few lemon seeds.", orangeTable, ItemType::COMMON, false, false, true);

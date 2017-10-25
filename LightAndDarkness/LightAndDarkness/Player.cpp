@@ -133,6 +133,11 @@ void Player::Open(const std::vector<std::string>& args)
 		}
 		break;
 	case 5:
+		if (Same(args[2], "with"))
+		{
+			item = (Item*)GetRoom()->Find(args[1], EntityType::ITEM);
+			key = (Item*)Find(args[3] + " " + args[4], EntityType::ITEM);
+		}
 		if (Same(args[3], "with"))
 		{
 			item = (Item*)GetRoom()->Find(args[1] + " " + args[2], EntityType::ITEM);
@@ -266,7 +271,7 @@ void Player::Unlock(const std::vector<std::string>& args)
 				cout << "\nCan't find the key. Check inventory." << endl;
 				return;
 			}
-			if (exit->key == key)
+			else if (exit->key == key)
 			{
 				cout << "\nYou open the exit to the " << exit->name << " with the " << key->name << ". You can now go through it." << endl;
 				exit->locked = false;
@@ -326,6 +331,11 @@ void Player::Drop(const std::vector<std::string>& args)
 		}
 		break;
 	case 5:
+		if (Same(args[2], "into"))
+		{
+			droppedItem = (Item*)Find(args[1], EntityType::ITEM);
+			container = (Item*)GetRoom()->Find(args[3] + " " + args[4], EntityType::ITEM);
+		}
 		if (Same(args[3], "into"))
 		{
 			droppedItem = (Item*)Find(args[1] + " " + args[2], EntityType::ITEM);

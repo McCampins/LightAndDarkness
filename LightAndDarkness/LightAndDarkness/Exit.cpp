@@ -26,7 +26,7 @@ Exit::~Exit()
 
 void Exit::Look() const
 {
-	cout << name << " to " << oppositeName << endl;
+	cout << "\nExit to the " << name << endl;
 	cout << description << endl;
 }
 

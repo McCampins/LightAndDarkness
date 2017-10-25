@@ -38,7 +38,7 @@ void Item::Look() const
 				Item* item = (Item*)*it;
 				if (item->hidden == false)
 				{
-					cout << "This item contains a " << (*it)->name << endl;
+					cout << "This item contains " << (*it)->name << endl;
 					allHiden = false;
 				}
 			}
