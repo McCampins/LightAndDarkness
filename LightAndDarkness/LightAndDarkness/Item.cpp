@@ -33,24 +33,13 @@ void Item::Look() const
 		}
 		else
 		{
-			bool allItemsClosed = true;
-			bool allNotVisible = true;
 			for (list<Entity*>::const_iterator it = stuff.begin(); it != stuff.end(); ++it)
 			{
 				Item* item = (Item*)*it;
-				if (item->openToSee == false)
+				if (item->openToSee == false && item->notVisible == false)
 				{
-					allItemsClosed = false;
-					if (item->notVisible == false)
-					{
-						allNotVisible = false;
-						cout << "This item contains " << (*it)->name << endl;
-					}
+					cout << "This item contains " << (*it)->name << endl;
 				}
-			}
-			if (allItemsClosed == true)
-			{
-				cout << "This item is closed." << endl;
 			}
 		}
 	}
@@ -60,36 +49,36 @@ void Item::Tick()
 {
 	if (Same(name, "Flower Pot"))
 	{
-		bool lemonSeeds = false;
+		bool orangeSeeds = false;
 		bool water = false;
-		vector<Entity*>::const_iterator lemonIterator = container.end();
+		vector<Entity*>::const_iterator orangeIterator = container.end();
 
 		for (vector<Entity*>::const_iterator it = container.begin(); it != container.cend(); ++it)
 		{
 			Item* item = (Item*)*it;
-			if (Same(item->name, "Lemon Seeds"))
+			if (Same(item->name, "Orange Seeds"))
 			{
-				lemonSeeds = true;
+				orangeSeeds = true;
 			}
 			else if (Same(item->name, "Water"))
 			{
 				water = true;
 			}
-			else if (Same(item->name, "Lemon"))
+			else if (Same(item->name, "Orange"))
 			{
-				lemonIterator = it;
+				orangeIterator = it;
 			}
 		}
 
-		if (lemonIterator != container.end())
+		if (orangeIterator != container.end())
 		{
-			Item* lemon = (Item*)*lemonIterator;
+			Item* lemon = (Item*)*orangeIterator;
 
 			if (lemon->notVisible == true)
 			{
-				if (lemonSeeds == true && water == true)
+				if (orangeSeeds == true && water == true)
 				{
-					cout << "\nThe water, the seeds and the soil magically merge together and a beautiful but tiny lemon tree grows. One single lemon "
+					cout << "\nThe water, the seeds and the soil magically merge together and a beautiful but tiny orange tree grows. One single orange "
 						"surrounded by green leaves stares at you." << endl;
 
 					lemon->notVisible = false;

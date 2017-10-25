@@ -6,7 +6,7 @@
 class Player : public Creature
 {
 public:
-	Player(const char* name, const char* description, Room* room, const char* state);
+	Player(const char* name, const char* description, Room* room);
 	~Player();
 
 	void Look(const std::vector<std::string>& args) const;
@@ -16,6 +16,10 @@ public:
 	void Unlock(const std::vector<std::string>& args);
 	void Inventory() const;
 	void Drop(const std::vector<std::string>& args);
+	void Tick();
+
+public:
+	Room* previousLocation = nullptr;
 };
 
 #endif

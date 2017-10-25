@@ -9,8 +9,8 @@
 
 using namespace std;
 
-Player::Player(const char* name, const char* description, Room* room, const char* state) :
-	Creature(name, description, room, state)
+Player::Player(const char* name, const char* description, Room* room) :
+	Creature(name, description, room, "")
 {
 	type = EntityType::PLAYER;
 }
@@ -43,7 +43,13 @@ void Player::Look(const vector<string>& args) const
 		{
 			Item* it = (Item*)entity;
 			if (it->openToSee == false && it->notVisible == false)
+			{
 				entity->Look();
+			}
+			else
+			{
+				cout << "\nCan't find this entity." << endl;
+			}
 
 			return;
 		}
@@ -68,9 +74,13 @@ void Player::Look(const vector<string>& args) const
 		{
 			Item* it = (Item*)entity;
 			if (it->openToSee == false && it->notVisible == false)
+			{
 				entity->Look();
-
-			return;
+			}
+			else
+			{
+				cout << "\nCan't find this entity." << endl;
+			}
 		}
 		entity = parent->Find(args[1] + " " + args[2], EntityType::EXIT);
 		if (entity != nullptr)
@@ -98,19 +108,26 @@ void Player::Go(const std::vector<std::string>& args)
 
 	if (exit == nullptr)
 	{
-		cout << "\nThere is no exit to the " << args[1] << "." << endl;
+		if (Same(args[1], "north") || Same(args[1], "west") || Same(args[1], "south") || Same(args[1], "east"))
+		{
+			cout << "\nThere is no exit to the " << args[1] << endl;
+		}
+		else
+		{
+			cout << "\nInvalid direction. Must be either north, east, south or west." << endl;
+		}
 		return;
-	}
-
-	if (exit->oneWay)
-	{
-		cout << "\nAs you walk through, the door locks behind you." << endl;
 	}
 
 	if (exit->locked)
 	{
 		cout << "\nThis exit is locked." << endl;
 		return;
+	}
+
+	if (exit->oneWay)
+	{
+		cout << "\nAs you walk through, the door locks behind you." << endl;
 	}
 
 	cout << "\nYou go through a " << exit->description << " to the " << exit->GetNameFrom((Room*)parent) << "." << endl;
@@ -301,7 +318,14 @@ void Player::Unlock(const std::vector<std::string>& args)
 	}
 	else
 	{
-		cout << "\nThere is no exit to the " << exit->name << endl;
+		if (Same(args[1], "north") || Same(args[1], "west") || Same(args[1], "south") || Same(args[1], "east"))
+		{
+			cout << "\nThere is no exit to the " << args[1] << endl;
+		}
+		else
+		{
+			cout << "\nInvalid direction. Must be either north, east, south or west." << endl;
+		}
 	}
 }
 
@@ -391,4 +415,26 @@ void Player::Drop(const std::vector<std::string>& args)
 	{
 		cout << "\nYou don't have this item. Check inventory." << endl;
 	}
+}
+
+void Player::Tick()
+{
+	Item* item = nullptr;
+
+	if (GetRoom() == previousLocation)
+	{
+		if (Same(previousLocation->name, "Yellow Room"))
+		{
+			item = (Item*) GetRoom()->Find("Yellow Ball", EntityType::ITEM);
+			if (item->notVisible == true)
+			{
+				item->notVisible = false;
+				item = (Item*)GetRoom()->Find("Green Key", EntityType::ITEM);
+				item->notVisible = false;
+				cout << "\nYour patience has been rewarded. Two objects appear in the room..." << endl;
+			}
+		}
+	}
+	
+	previousLocation = GetRoom();
 }

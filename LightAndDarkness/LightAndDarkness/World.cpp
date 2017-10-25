@@ -20,7 +20,8 @@ World::World()
 		"echo through the light: \"No mind can ever wander too far, a sense of balance must be met in order to advance...\"");
 	Room* orangeRoom = new Room("Orange Room", "You are inside a small room, dimly lighted with two orange lamps. When you enter you hear a faint "
 		"echo through the light: \"All that serves a purpose, must first grow...\"");
-	Room* yellowRoom = new Room("Yellow Room", "You are inside a small room, dimly lighted with three yellow lamps.");
+	Room* yellowRoom = new Room("Yellow Room", "You are inside a small room, dimly lighted with three yellow lamps. When you enter you hear a faint "
+		"echo through the light: \"Patience is virtue...\"");
 	Room* greenRoom = new Room("Green Room", "You are inside a small room, dimly ligthed with four green lamps.");
 	Room* blueRoom = new Room("Blue Room", "You are inside a small room, dimly lighted with five blue lamps.");
 	Room* violetRoom = new Room("Violet Room", "You are inside a small room, dimly lighted with six violet lamps.");
@@ -42,21 +43,17 @@ World::World()
 	entities.push_back(godRoom);
 
 	//Color room keys
-	Item* greenKey = new Item("Green Key", "A small green key", nullptr, ItemType::KEY, false, true, true);
 	Item* blueKey = new Item("Blue Key", "A small blue key", nullptr, ItemType::KEY, false, true, true);
 	Item* violetKey = new Item("Violet Key", "A small violet key", nullptr, ItemType::KEY, false, true, true);
 
-	entities.push_back(greenKey);
 	entities.push_back(blueKey);
 	entities.push_back(violetKey);
 
 	//Light balls given in each color room
-	Item* yellowBall = new Item("Yellow Ball", "A ball of condensed yellow light", nullptr, ItemType::LIGHTBALL, false, true, true);
 	Item* greenBall = new Item("Green Ball", "A ball of condensed green light", nullptr, ItemType::LIGHTBALL, false, true, true);
 	Item* blueBall = new Item("Blue Ball", "A ball of condensed blue light", nullptr, ItemType::LIGHTBALL, false, true, true);
 	Item* violetBall = new Item("Violet Ball", "A ball of condensed violet light", nullptr, ItemType::LIGHTBALL, false, true, true);
 
-	entities.push_back(yellowBall);
 	entities.push_back(greenBall);
 	entities.push_back(blueBall);
 	entities.push_back(violetBall);
@@ -116,26 +113,33 @@ World::World()
 	Item* water = new Item("Water", "Some water", bucket, ItemType::COMMON, false, false, false, true);
 	Item* orangeTable = new Item("Orange Table", "A wooden old table, standing in the middle of the room.", orangeRoom, ItemType::COMMON);
 	Item* appleSeeds = new Item("Apple Seeds", "A few apple seeds.", orangeTable, ItemType::COMMON, false, false, false, true);
-	Item* lemonSeeds = new Item("Lemon Seeds", "A few lemon seeds.", orangeTable, ItemType::COMMON, false, false, false, true);
+	Item* orangeSeeds = new Item("Orange Seeds", "A few orange seeds.", orangeTable, ItemType::COMMON, false, false, false, true);
 	Item* strawberrySeeds = new Item("Strawberry Seeds", "A few strawberry seeds.", orangeTable, ItemType::COMMON, false, false, false, true);
-	Item* lemon = new Item("Lemon", "A fresh lemon. Seems like something is glowing inside.", flowerPot, ItemType::COMMON, false, false, true, true);
-	Item* yellowKey = new Item("Yellow Key", "A small yellow key. It was stored inside the lemon.", lemon, ItemType::KEY, false, true, false, true);
-	Item* orangeBall = new Item("Orange Ball", "A ball of condensed orange light", lemon, ItemType::LIGHTBALL, false, true, false, true);
+	Item* orange = new Item("Orange", "A fresh orange. Seems like something is glowing inside.", flowerPot, ItemType::COMMON, false, false, true, true);
+	Item* yellowKey = new Item("Yellow Key", "A small yellow key. It was stored inside the orange.", orange, ItemType::KEY, false, true, false, true);
+	Item* orangeBall = new Item("Orange Ball", "A ball of condensed orange light", orange, ItemType::LIGHTBALL, false, true, false, true);
 
 	entities.push_back(flowerPot);
 	entities.push_back(bucket);
 	entities.push_back(water);
 	entities.push_back(orangeTable);
 	entities.push_back(appleSeeds);
-	entities.push_back(lemonSeeds);
+	entities.push_back(orangeSeeds);
 	entities.push_back(strawberrySeeds);
-	entities.push_back(lemon);
+	entities.push_back(orange);
 	entities.push_back(yellowKey);
 	entities.push_back(orangeBall);
-	
+
+	//Yellow Room
+	Item* yellowBall = new Item("Yellow Ball", "A ball of condensed yellow light", yellowRoom, ItemType::LIGHTBALL, false, false, true, true);	
+	Item* greenKey = new Item("Green Key", "A small green key", yellowRoom, ItemType::KEY, false, false, true, true);
+
+	entities.push_back(yellowBall);
+	entities.push_back(greenKey);
+
 	//Exits
 	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true, orangeKey2);
-	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom, false, true);
+	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom, false, true, yellowKey);
 	Exit* ex3 = new Exit("West", "East", "Narrow Passage", centerRoom, redRoom);
 	Exit* ex4 = new Exit("South", "North", "Narrow Passage", corpseRoom, centerRoom, true);
 	Exit* ex5 = new Exit("South", "North", "Light Door", centerRoom, godRoom, false, true);
@@ -153,15 +157,14 @@ World::World()
 	entities.push_back(ex8);
 
 	//Player
-	player = new Player("Light corpse", "You are a floating smoke-like creature, with a small light flickering inside you.",
-		corpseRoom, "\nThe light inside you flickers, you feel a small pull inside, urging you to hurry.");
+	player = new Player("Light corpse", "You are a floating smoke-like creature, with a small light flickering inside you.", corpseRoom);
 
 	entities.push_back(player);
 
 	//NPC God
 	god = new NPC("Light God", "You see a flowing creature emanating light towards all directions. Your flickering light seems "
-		"synced with the creature's.", godRoom, "\nYou hear a whispering sound coming through the light, "
-		"\"Hurry, you must bring me the light...\"");
+		"synced with the creature's.", godRoom, "\nThe light inside you flickers, you feel a small pull inside, urging you to hurry.\nYou hear a "
+		"whispering sound coming through the light, \"Hurry, you must bring me the light...\"");
 
 	entities.push_back(god);
 }
@@ -346,26 +349,36 @@ void World::GameLoop()
 {
 	clock_t now = clock();
 
-	if ((now - tickTimer) / CLOCKS_PER_SEC > STATE_CREATURE_TICK_FREQUENCY)
+	if ((now - tickTimerCreature) / CLOCKS_PER_SEC > STATE_CREATURE_TICK_FREQUENCY)
 	{
 		for (vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
-			if ((*it)->type == EntityType::PLAYER || (*it)->type == EntityType::NPC)
+			if ((*it)->type == EntityType::NPC)
 				(*it)->Tick();
 
-		tickTimer = now;
+		tickTimerCreature = now;
 	}
 
-	if ((now - tickTimer) / CLOCKS_PER_SEC > STATE_END_LIFE_FREQUENCY)
+	if ((now - tickTimerEnd) / CLOCKS_PER_SEC > STATE_END_LIFE_FREQUENCY)
 	{
 		restart = true;
 	}
-	if ((now - tickTimer) / CLOCKS_PER_SEC > STATE_ITEM_TICK_FREQUENCY)
+
+	if ((now - tickTimerItem) / CLOCKS_PER_SEC > STATE_ITEM_TICK_FREQUENCY)
 	{
 		for (vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
 			if ((*it)->type == EntityType::ITEM)
 				(*it)->Tick();
 
-		tickTimer = now;
+		tickTimerItem = now;
+	}
+
+	if ((now - tickTimerLocation) / CLOCKS_PER_SEC > STATE_LOCATION_TICK_FREQUENCY)
+	{
+		for (vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
+			if ((*it)->type == EntityType::PLAYER)
+				(*it)->Tick();
+
+		tickTimerLocation = now;
 	}
 }
 
