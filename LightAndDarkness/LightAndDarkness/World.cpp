@@ -22,8 +22,10 @@ World::World()
 		"echo through the light: \"All that serves a purpose, must first grow...\"");
 	Room* yellowRoom = new Room("Yellow Room", "You are inside a small room, dimly lighted with three yellow lamps. When you enter you hear a faint "
 		"echo through the light: \"Patience is virtue...\"");
-	Room* greenRoom = new Room("Green Room", "You are inside a small room, dimly ligthed with four green lamps.");
-	Room* blueRoom = new Room("Blue Room", "You are inside a small room, dimly lighted with five blue lamps.");
+	Room* greenRoom = new Room("Green Room", "You are inside a small room, dimly ligthed with four green lamps. When you enter you hear a faint "
+		"echo through the light: \"Quid pro quo...\"");
+	Room* blueRoom = new Room("Blue Room", "You are inside a small room, dimly lighted with five blue lamps. When you enter you hear a faint "
+		"echo through the light: \"We all desire what we don't have...\"");
 	Room* violetRoom = new Room("Violet Room", "You are inside a small room, dimly lighted with six violet lamps.");
 
 	Room* corpseRoom = new Room("Corpse Room", "You are inside a wide room, empty and dark. You feel like you just woke up. Next to you "
@@ -41,21 +43,9 @@ World::World()
 	entities.push_back(corpseRoom);
 	entities.push_back(centerRoom);
 	entities.push_back(godRoom);
-
-	//Color room keys
-	Item* blueKey = new Item("Blue Key", "A small blue key", nullptr, ItemType::KEY, false, true, true);
-	Item* violetKey = new Item("Violet Key", "A small violet key", nullptr, ItemType::KEY, false, true, true);
-
-	entities.push_back(blueKey);
-	entities.push_back(violetKey);
-
-	//Light balls given in each color room
-	Item* greenBall = new Item("Green Ball", "A ball of condensed green light", nullptr, ItemType::LIGHTBALL, false, true, true);
-	Item* blueBall = new Item("Blue Ball", "A ball of condensed blue light", nullptr, ItemType::LIGHTBALL, false, true, true);
+	
 	Item* violetBall = new Item("Violet Ball", "A ball of condensed violet light", nullptr, ItemType::LIGHTBALL, false, true, true);
 
-	entities.push_back(greenBall);
-	entities.push_back(blueBall);
 	entities.push_back(violetBall);
 
 	//Center room
@@ -137,14 +127,49 @@ World::World()
 	entities.push_back(yellowBall);
 	entities.push_back(greenKey);
 
+	//Green Room
+	Item* Crocodile = new Item("Emerald Crocodile", "A magnificent Crocodile carved in emerald. It has its jaws wide open, as if it "
+		"was expecting something.", greenRoom, ItemType::COMMON);
+	Item* cabinet = new Item("Cabinet", "A wooden cabinet. No lock can be seen", greenRoom, ItemType::COMMON);
+	Item* meatPiece = new Item("Meat", "A piece of fresh meat.", cabinet, ItemType::COMMON, false, true, false, true);
+	Item* greenBall = new Item("Green Ball", "A ball of condensed green light", greenRoom, ItemType::LIGHTBALL, false, false, true, true);
+	Item* blueKey = new Item("Blue Key", "A small blue key", greenRoom, ItemType::KEY, false, false, true, true);
+
+	entities.push_back(Crocodile);
+	entities.push_back(cabinet);
+	entities.push_back(meatPiece);
+	entities.push_back(greenBall);
+	entities.push_back(blueKey);
+
+	//Blue Room
+	Item* leftStatue = new Item("Left Statue", "Huge statue made of stone. It's looking down happily to the items below it.", blueRoom,
+		ItemType::COMMON);
+	Item* rightStatue = new Item("Right Statue", "Huge statue made of stone. It's looking to the left, with a hint of envy on its expression.", blueRoom,
+		ItemType::COMMON);
+	Item* goldPiece = new Item("Gold", "Gold piece, shining brightly.", leftStatue, ItemType::COMMON, false, false, false, true);
+	Item* silverPiece = new Item("Silver", "Silver piece, shining brightly.", leftStatue, ItemType::COMMON, false, false, false, true);
+	Item* bronzePiece = new Item("Bronze", "Bronze piece, shining brightly.", leftStatue, ItemType::COMMON, false, false, false, true);
+	Item* tear = new Item("Tear", "Tear of water, a bright light is coming from inside", leftStatue, ItemType::COMMON, false, false, true, true);
+	Item* violetKey = new Item("Violet Key", "A small violet key", tear, ItemType::KEY, false, true, false, true);
+	Item* blueBall = new Item("Blue Ball", "A ball of condensed blue light", tear, ItemType::LIGHTBALL, false, true, false, true);
+
+	entities.push_back(leftStatue);
+	entities.push_back(rightStatue);
+	entities.push_back(goldPiece);
+	entities.push_back(silverPiece);
+	entities.push_back(bronzePiece);
+	entities.push_back(tear);
+	entities.push_back(violetKey);
+	entities.push_back(blueBall);
+
 	//Exits
 	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true, orangeKey2);
 	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom, false, true, yellowKey);
 	Exit* ex3 = new Exit("West", "East", "Narrow Passage", centerRoom, redRoom);
 	Exit* ex4 = new Exit("South", "North", "Narrow Passage", corpseRoom, centerRoom, true);
 	Exit* ex5 = new Exit("South", "North", "Light Door", centerRoom, godRoom, false, true);
-	Exit* ex6 = new Exit("East", "West", "Light Door", centerRoom, greenRoom, false, true);
-	Exit* ex7 = new Exit("North", "South", "Light Door", greenRoom, blueRoom, false, true);
+	Exit* ex6 = new Exit("East", "West", "Light Door", centerRoom, greenRoom, false, true, greenKey);
+	Exit* ex7 = new Exit("North", "South", "Light Door", greenRoom, blueRoom, false, true, blueKey);
 	Exit* ex8 = new Exit("South", "North", "Light Door", greenRoom, violetRoom, false, true);
 
 	entities.push_back(ex1);
@@ -349,6 +374,7 @@ void World::GameLoop()
 {
 	clock_t now = clock();
 
+	//Sentence spoken by the god to urge the player to finish quickly
 	if ((now - tickTimerCreature) / CLOCKS_PER_SEC > STATE_CREATURE_TICK_FREQUENCY)
 	{
 		for (vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
@@ -358,11 +384,13 @@ void World::GameLoop()
 		tickTimerCreature = now;
 	}
 
+	//Timer to restart game if player has not finished it
 	if ((now - tickTimerEnd) / CLOCKS_PER_SEC > STATE_END_LIFE_FREQUENCY)
 	{
 		restart = true;
 	}
 
+	//Timer to check state of items and act in consequence
 	if ((now - tickTimerItem) / CLOCKS_PER_SEC > STATE_ITEM_TICK_FREQUENCY)
 	{
 		for (vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
@@ -372,6 +400,7 @@ void World::GameLoop()
 		tickTimerItem = now;
 	}
 
+	//Timer to check the location of the player
 	if ((now - tickTimerLocation) / CLOCKS_PER_SEC > STATE_LOCATION_TICK_FREQUENCY)
 	{
 		for (vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)

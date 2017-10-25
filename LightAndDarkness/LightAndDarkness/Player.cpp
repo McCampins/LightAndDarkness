@@ -50,7 +50,6 @@ void Player::Look(const vector<string>& args) const
 			{
 				cout << "\nCan't find this entity." << endl;
 			}
-
 			return;
 		}
 		entity = parent->Find(args[1], EntityType::EXIT);
@@ -81,6 +80,7 @@ void Player::Look(const vector<string>& args) const
 			{
 				cout << "\nCan't find this entity." << endl;
 			}
+			return;
 		}
 		entity = parent->Find(args[1] + " " + args[2], EntityType::EXIT);
 		if (entity != nullptr)
@@ -361,26 +361,26 @@ void Player::Drop(const std::vector<std::string>& args)
 		droppedItem = (Item*)Find(args[1] + " " + args[2], EntityType::ITEM);
 		break;
 	case 4:
-		if (Same(args[2], "into"))
+		if (Same(args[2], "into") || Same(args[2], "in"))
 		{
 			droppedItem = (Item*)Find(args[1], EntityType::ITEM);
 			container = (Item*)GetRoom()->Find(args[3], EntityType::ITEM);
 		}
 		break;
 	case 5:
-		if (Same(args[2], "into"))
+		if (Same(args[2], "into") || Same(args[2], "in"))
 		{
 			droppedItem = (Item*)Find(args[1], EntityType::ITEM);
 			container = (Item*)GetRoom()->Find(args[3] + " " + args[4], EntityType::ITEM);
 		}
-		if (Same(args[3], "into"))
+		if (Same(args[3], "into") || Same(args[3], "in"))
 		{
 			droppedItem = (Item*)Find(args[1] + " " + args[2], EntityType::ITEM);
 			container = (Item*)GetRoom()->Find(args[4], EntityType::ITEM);
 		}
 		break;
 	case 6:
-		if (Same(args[3], "into"))
+		if (Same(args[3], "into") || Same(args[3], "in"))
 		{
 			droppedItem = (Item*)Find(args[1] + " " + args[2], EntityType::ITEM);
 			container = (Item*)GetRoom()->Find(args[4] + " " + args[5], EntityType::ITEM);
@@ -432,6 +432,7 @@ void Player::Tick()
 				item = (Item*)GetRoom()->Find("Green Key", EntityType::ITEM);
 				item->notVisible = false;
 				cout << "\nYour patience has been rewarded. Two objects appear in the room..." << endl;
+				cout << "\n> ";
 			}
 		}
 	}
