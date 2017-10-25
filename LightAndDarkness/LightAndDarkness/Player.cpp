@@ -230,6 +230,10 @@ void Player::Open(const std::vector<std::string>& args)
 				}
 			}
 		}
+		else
+		{
+			cout << "\nCan't find the item in this room." << endl;
+		}
 	}
 	else
 	{
@@ -244,10 +248,26 @@ void Player::Take(const std::vector<std::string>& args)
 	switch (args.size())
 	{
 	case 2:
-		item = (Item*)GetRoom()->Find(args[1], EntityType::ITEM);
+		item = (Item*)Find(args[1], EntityType::ITEM); 
+		if (item == nullptr)
+		{
+			item = (Item*)GetRoom()->Find(args[1], EntityType::ITEM);
+		}
+		else
+		{
+			item = nullptr;
+		}
 		break;
 	case 3:
-		item = (Item*)GetRoom()->Find(args[1] + " " + args[2], EntityType::ITEM);
+		item = (Item*)Find(args[1] + " " + args[2], EntityType::ITEM);
+		if (item == nullptr)
+		{
+			item = (Item*)GetRoom()->Find(args[1] + " " + args[2], EntityType::ITEM);
+		}
+		else
+		{
+			item = nullptr;
+		}
 		break;
 	default:
 		return; //Error, should never happen
@@ -259,8 +279,15 @@ void Player::Take(const std::vector<std::string>& args)
 		{
 			if (item->takeable == true)
 			{
-				cout << "\nYou take the " << item->name << "." << endl;
-				item->ChangeParentTo(this);
+				if (container.size() < 10)
+				{
+					cout << "\nYou take the " << item->name << "." << endl;
+					item->ChangeParentTo(this);
+				}
+				else
+				{
+					cout << "\nYour inventory is full, must drop something before taking anything else." << endl;
+				}
 			}
 			else
 			{
@@ -453,7 +480,7 @@ void Player::Touch(const std::vector<std::string>& args)
 		{
 			if (Same((*it)->name, args[1]))
 			{
-				NPC* npc = (NPC*) *it;
+				NPC* npc = (NPC*)*it;
 				npc->Touch();
 				return;
 			}
@@ -471,7 +498,7 @@ void Player::Tick()
 	{
 		if (Same(previousLocation->name, "Yellow Room"))
 		{
-			item = (Item*) GetRoom()->Find("Yellow Ball", EntityType::ITEM);
+			item = (Item*)GetRoom()->Find("Yellow Ball", EntityType::ITEM);
 			if (item->notVisible == true)
 			{
 				item->notVisible = false;
@@ -482,6 +509,6 @@ void Player::Tick()
 			}
 		}
 	}
-	
+
 	previousLocation = GetRoom();
 }

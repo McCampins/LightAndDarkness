@@ -99,7 +99,7 @@ World::World()
 	Item* appleSeeds = new Item("Apple Seeds", "A few apple seeds.", orangeTable, ItemType::COMMON, false, false, false, true);
 	Item* orangeSeeds = new Item("Orange Seeds", "A few orange seeds.", orangeTable, ItemType::COMMON, false, false, false, true);
 	Item* strawberrySeeds = new Item("Strawberry Seeds", "A few strawberry seeds.", orangeTable, ItemType::COMMON, false, false, false, true);
-	Item* orange = new Item("Orange", "A fresh orange. Seems like something is glowing inside.", flowerPot, ItemType::COMMON, false, false, true, true);
+	Item* orange = new Item("Orange", "A fresh orange. Seems like something is glowing inside.", flowerPot, ItemType::COMMON, false, false, true, false);
 	Item* yellowKey = new Item("Yellow Key", "A small yellow key. It was stored inside the orange.", orange, ItemType::KEY, false, true, false, true);
 	Item* orangeBall = new Item("Orange Ball", "A ball of condensed orange light", orange, ItemType::LIGHTBALL, false, true, false, true);
 
