@@ -16,6 +16,7 @@ public:
 	void Unlock(const std::vector<std::string>& args);
 	void Inventory() const;
 	void Drop(const std::vector<std::string>& args);
+	void Touch(const std::vector<std::string>& args);
 	void Tick();
 
 public:

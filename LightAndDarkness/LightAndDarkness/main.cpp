@@ -83,6 +83,13 @@ int main()
 
 			inputArgs.push_back("look");
 		}
+
+		if (world->end)
+		{
+			cout << "\n\n-------------------------------\nCongratulations! You finished the game!" << endl;
+			play = false;
+		}
+
 	}
 
 	return 0;

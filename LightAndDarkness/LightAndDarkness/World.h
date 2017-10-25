@@ -33,6 +33,7 @@ public:
 	Player* player = nullptr;
 	NPC* god = nullptr;
 	bool restart = false;
+	bool end = false;
 };
 
 #endif

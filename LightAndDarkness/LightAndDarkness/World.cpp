@@ -225,7 +225,10 @@ World::World()
 	//NPC God
 	god = new NPC("Light God", "You see a flowing creature emanating light towards all directions. Your flickering light seems "
 		"synced with the creature's.", godRoom, "\nThe light inside you flickers, you feel a small pull inside, urging you to hurry.\nYou hear a "
-		"whispering sound coming through the light, \"Hurry, you must bring me the light...\"");
+		"whispering sound coming through the light, \"Hurry, you must bring me the light...\"", "You inch closer to the creature, touching it "
+		"eventually. When you touch it you feel you body filling up, the once flickering, weak light inside you now gleams with intensity. "
+		"Then it starts to transfer to the creature, which howls with joy. After a while, all light has been transferred, your inner light "
+		"flicks one last time as you fade into darkness...");
 
 	entities.push_back(god);
 }
@@ -321,6 +324,12 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		else if (Same(args[0], "drop"))
 		{
 			player->Drop(args);
+		}
+		else if (Same(args[0], "touch"))
+		{
+			player->Touch(args);
+			if (Same(args[1], "god"))
+				end = true;
 		}
 		else
 		{

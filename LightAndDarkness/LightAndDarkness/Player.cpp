@@ -6,6 +6,7 @@
 #include "Exit.h"
 #include "Room.h"
 #include "Item.h"
+#include "NPC.h"
 
 using namespace std;
 
@@ -385,6 +386,8 @@ void Player::Drop(const std::vector<std::string>& args)
 			droppedItem = (Item*)Find(args[1] + " " + args[2], EntityType::ITEM);
 			container = (Item*)GetRoom()->Find(args[4] + " " + args[5], EntityType::ITEM);
 		}
+	default:
+		return; //Error, should never happen
 	}
 
 	if (droppedItem != nullptr)
@@ -414,6 +417,27 @@ void Player::Drop(const std::vector<std::string>& args)
 	else
 	{
 		cout << "\nYou don't have this item. Check inventory." << endl;
+	}
+}
+
+void Player::Touch(const std::vector<std::string>& args)
+{
+	if (args.size() == 2) //Should always happen
+	{
+		list<Entity*> npcList;
+		GetRoom()->FindAll(EntityType::NPC, npcList);
+
+		for (list<Entity*>::const_iterator it = npcList.begin(); it != npcList.end(); ++it)
+		{
+			if (Same((*it)->name, args[1]))
+			{
+				NPC* npc = (NPC*) *it;
+				npc->Touch();
+				return;
+			}
+		}
+
+		cout << "\nThe creature you are trying to touch can't be found." << endl;
 	}
 }
 
