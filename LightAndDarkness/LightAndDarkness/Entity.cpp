@@ -71,16 +71,7 @@ Entity* Entity::Find(const string& name, EntityType type) const
 		if ((*it)->type == type)
 		{
 			if (Same((*it)->name, name))
-				if (type == EntityType::ITEM)
-				{
-					Item* item = (Item*) *it;
-					if (item->openToSee == false)
-						return *it;
-				}
-				else
-				{
-					return *it;
-				}
+				return *it;
 		}
 		if ((*it)->container.empty() == false)
 		{

@@ -52,15 +52,7 @@ void Item::Look() const
 			{
 				cout << "This item is closed." << endl;
 			}
-			else if (allNotVisible == true)
-			{
-				cout << "You can't see anything on this item." << endl;
-			}
 		}
-	}
-	else
-	{
-		cout << "This item doesn't contain anything." << endl;
 	}
 }
 

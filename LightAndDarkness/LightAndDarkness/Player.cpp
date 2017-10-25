@@ -22,6 +22,8 @@ Player::~Player()
 
 void Player::Look(const vector<string>& args) const
 {
+	Entity* entity = nullptr;
+
 	switch (args.size())
 	{
 	case 0:
@@ -36,58 +38,51 @@ void Player::Look(const vector<string>& args) const
 			return;
 		}
 
-		for (vector<Entity*>::const_iterator it = parent->container.begin(); it != parent->container.cend(); ++it)
+		entity = parent->Find(args[1], EntityType::ITEM);
+		if (entity != nullptr)
 		{
-			if (Same((*it)->name, args[1]))
-			{
-				(*it)->Look();
-				return;
-			}
-			if ((*it)->container.empty() == false)
-			{
-				for (vector<Entity*>::const_iterator it2 = (*it)->container.begin(); it2 != (*it)->container.cend(); ++it2)
-				{
-					if (Same((*it2)->name, args[1]))
-					{
-						(*it2)->Look();
-						return;
-					}
-				}
-			}
+			Item* it = (Item*)entity;
+			if (it->openToSee == false && it->notVisible == false)
+				entity->Look();
+
+			return;
+		}
+		entity = parent->Find(args[1], EntityType::EXIT);
+		if (entity != nullptr)
+		{
+			entity->Look();
+			return;
+		}
+		entity = parent->Find(args[1], EntityType::NPC);
+		if (entity != nullptr)
+		{
+			entity->Look();
+			return;
 		}
 
 		cout << "\nCan't find this entity." << endl;
 		break;
 	case 3:
-		for (vector<Entity*>::const_iterator it = parent->container.begin(); it != parent->container.cend(); ++it)
+		entity = parent->Find(args[1] + " " + args[2], EntityType::ITEM);
+		if (entity != nullptr)
 		{
-			if ((*it)->type == EntityType::ITEM || (*it)->type == EntityType::PLAYER)
-			{
-				if (Same((*it)->name, args[1] + " " + args[2]))
-				{
-					(*it)->Look();
-					return;
-				}
-				if ((*it)->container.empty() == false)
-				{
-					for (vector<Entity*>::const_iterator it2 = (*it)->container.begin(); it2 != (*it)->container.cend(); ++it2)
-					{
-						if (Same((*it2)->name, args[1] + " " + args[2]))
-						{
-							(*it2)->Look();
-							return;
-						}
-					}
-				}
-			}
-			else
-			{
-				if (Same((*it)->name, args[1]))
-				{
-					(*it)->Look();
-					return;
-				}
-			}
+			Item* it = (Item*)entity;
+			if (it->openToSee == false && it->notVisible == false)
+				entity->Look();
+
+			return;
+		}
+		entity = parent->Find(args[1] + " " + args[2], EntityType::EXIT);
+		if (entity != nullptr)
+		{
+			entity->Look();
+			return;
+		}
+		entity = parent->Find(args[1] + " " + args[2], EntityType::NPC);
+		if (entity != nullptr)
+		{
+			entity->Look();
+			return;
 		}
 
 		cout << "\nCan't find this entity." << endl;
@@ -165,43 +160,46 @@ void Player::Open(const std::vector<std::string>& args)
 
 	if (item != nullptr)
 	{
-		if (item->contentsLocked == true)
+		if (item->openToSee == false && item->notVisible == false)
 		{
-			if (key != nullptr)
+			if (item->contentsLocked == true)
 			{
-				if (item->key == key)
+				if (key != nullptr)
 				{
-					cout << "\nYou open the item " << item->name << " with your key " << key->name << ". You can now see its contents when you look at it." << endl;
-					for (vector<Entity*>::const_iterator it = item->container.begin(); it != item->container.cend(); ++it)
+					if (item->key == key)
 					{
-						Item* i = (Item*)*it;
-						if (i->openToSee == true)
+						cout << "\nYou open the item " << item->name << " with your key " << key->name << ". You can now see its contents when you look at it." << endl;
+						for (vector<Entity*>::const_iterator it = item->container.begin(); it != item->container.cend(); ++it)
 						{
-							i->openToSee = false;
+							Item* i = (Item*)*it;
+							if (i->openToSee == true)
+							{
+								i->openToSee = false;
+							}
 						}
+					}
+					else
+					{
+						cout << "\nThe key " << key->name << " can't open the item " << item->name << ", it stays locked." << endl;
 					}
 				}
 				else
 				{
-					cout << "\nThe key " << key->name << " can't open the item " << item->name << ", it stays locked." << endl;
+					cout << "\nCan't find the key. Check inventory." << endl;
 				}
 			}
 			else
 			{
-				cout << "\nCan't find the key. Check inventory." << endl;
-			}
-		}
-		else
-		{
-			for (vector<Entity*>::const_iterator it = item->container.begin(); it != item->container.cend(); ++it)
-			{
-				Item* i = (Item*)*it;
-				if (i->openToSee == true)
+				for (vector<Entity*>::const_iterator it = item->container.begin(); it != item->container.cend(); ++it)
 				{
-					i->openToSee = false;
+					Item* i = (Item*)*it;
+					if (i->openToSee == true)
+					{
+						i->openToSee = false;
+					}
 				}
+				cout << "\nThe item " << item->name << " is open. You can now look at its contents." << endl;
 			}
-			cout << "\nThe item " << item->name << " is open. You can now look at its contents." << endl;
 		}
 	}
 	else
@@ -371,18 +369,21 @@ void Player::Drop(const std::vector<std::string>& args)
 		{
 			if (container != nullptr)
 			{
-				cout << "\nYou drop the item " << droppedItem->name << " into the " << container->name << "." << endl;
-				droppedItem->ChangeParentTo(container);
+				if (container->openToSee == false && container->notVisible == false)
+				{
+					cout << "\nYou drop the " << droppedItem->name << " into the " << container->name << "." << endl;
+					droppedItem->ChangeParentTo(container);
+				}
 			}
 			else
 			{
-				cout << "\nThe container where you want to drop the item " << droppedItem->name << " can't be found in this room or "
+				cout << "\nThe container where you want to drop the " << droppedItem->name << " can't be found in this room or "
 					"in your inventory." << endl;
 			}
 		}
 		else
 		{
-			cout << "\nYou drop the item " << droppedItem->name << " in this room." << endl;
+			cout << "\nYou drop the " << droppedItem->name << " in this room." << endl;
 			droppedItem->ChangeParentTo(GetRoom());
 		}
 	}
