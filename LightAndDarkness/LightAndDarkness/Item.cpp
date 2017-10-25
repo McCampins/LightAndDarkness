@@ -131,6 +131,7 @@ void Item::Tick()
 			if (Same(item->name, "Meat"))
 			{
 				fed = true;
+				item->notVisible = true;
 			}
 		}
 
@@ -146,23 +147,6 @@ void Item::Tick()
 					item->notVisible = false;
 					item = (Item*)parent->Find("Blue Key", EntityType::ITEM);
 					item->notVisible = false;
-
-					cout << "\n> ";
-				}
-			}
-		}
-		else
-		{
-			Item* item = (Item*)parent->Find("Green Ball", EntityType::ITEM);
-			if (item != nullptr)
-			{
-				if (item->notVisible == false)
-				{
-					cout << "\nThe Crocodile, no fool, glows briefly again. The two objects disappear again." << endl;
-
-					item->notVisible = true;
-					item = (Item*)parent->Find("Blue Key", EntityType::ITEM);
-					item->notVisible = true;
 
 					cout << "\n> ";
 				}
