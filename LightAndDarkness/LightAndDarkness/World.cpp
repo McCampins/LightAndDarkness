@@ -49,17 +49,17 @@ World::World()
 	//Center room
 	Item* stonePillar = new Item("Stone Pillar", "A cylindrical table made of stone with six holes on top. The holes are lined up in the "
 		"center of the table, from left to right. Over them there is a rainbow with an angel on each side. ", centerRoom, ItemType::COMMON);
-	Item* redHole = new Item("Red Hole", "A faint red light is coming from the seamingly endless bottom of the hole.", stonePillar,
+	Item* redHole = new Item("First Hole", "A faint light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* orangeHole = new Item("Orange Hole", "A faint orange light is coming from the seamingly endless bottom of the hole.", stonePillar,
+	Item* orangeHole = new Item("Second Hole", "A faint light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* yellowHole = new Item("Yellow Hole", "A faint yellow light is coming from the seamingly endless bottom of the hole.", stonePillar,
+	Item* yellowHole = new Item("Third Hole", "A faint light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* greenHole = new Item("Green Hole", "A faint green light is coming from the seamingly endless bottom of the hole.", stonePillar,
+	Item* greenHole = new Item("Fourth Hole", "A faint light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* blueHole = new Item("Blue Hole", "A faint blue light is coming from the seamingly endless bottom of the hole.", stonePillar,
+	Item* blueHole = new Item("Fifth Hole", "A faint light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
-	Item* violetHole = new Item("Violet Hole", "A faint violet light is coming from the seamingly endless bottom of the hole.", stonePillar,
+	Item* violetHole = new Item("Sixth Hole", "A faint light is coming from the seamingly endless bottom of the hole.", stonePillar,
 		ItemType::COMMON);
 	Item* whiteBall = new Item("White Ball", "A ball of condensed light.", centerRoom, ItemType::WHITEBALL, false, false, true, true);
 

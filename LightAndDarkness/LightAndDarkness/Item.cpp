@@ -33,15 +33,38 @@ void Item::Look() const
 		}
 		else
 		{
+			bool allNotVisible = true;
+			bool someToOpen = false;
+
 			for (list<Entity*>::const_iterator it = stuff.begin(); it != stuff.end(); ++it)
 			{
 				Item* item = (Item*)*it;
-				if (item->openToSee == false && item->notVisible == false)
+				if (item->openToSee == false)
 				{
-					cout << "This item contains " << (*it)->name << endl;
+					if (item->notVisible == false)
+					{
+						allNotVisible = false;
+						cout << "This item contains " << (*it)->name << endl;
+					}
+				}
+				else
+				{
+					someToOpen = true;
 				}
 			}
+			if (someToOpen == true)
+			{
+				cout << "This item contains something. Open it to see its contents." << endl;
+			}
+			else if (allNotVisible == true)
+			{
+				cout << "This item does not contain anything." << endl;
+			}
 		}
+	}
+	else
+	{
+		cout << "This item does not contain anything." << endl;
 	}
 }
 
@@ -51,6 +74,8 @@ void Item::Tick()
 	{
 		bool orangeSeeds = false;
 		bool water = false;
+		vector<Entity*>::const_iterator waterIterator = container.end();
+		vector<Entity*>::const_iterator orangeSeedsIterator = container.end();
 		vector<Entity*>::const_iterator orangeIterator = container.end();
 
 		for (vector<Entity*>::const_iterator it = container.begin(); it != container.cend(); ++it)
@@ -59,10 +84,12 @@ void Item::Tick()
 			if (Same(item->name, "Orange Seeds"))
 			{
 				orangeSeeds = true;
+				orangeSeedsIterator = it;
 			}
 			else if (Same(item->name, "Water"))
 			{
 				water = true;
+				waterIterator = it;
 			}
 			else if (Same(item->name, "Orange"))
 			{
@@ -72,16 +99,22 @@ void Item::Tick()
 
 		if (orangeIterator != container.end())
 		{
-			Item* lemon = (Item*)*orangeIterator;
+			Item* orange = (Item*)*orangeIterator;
 
-			if (lemon->notVisible == true)
+			if (orange->notVisible == true)
 			{
 				if (orangeSeeds == true && water == true)
 				{
 					cout << "\nThe water, the seeds and the soil magically merge together and a beautiful but tiny orange tree grows. One single orange "
 						"surrounded by green leaves stares at you." << endl;
 
-					lemon->notVisible = false;
+					orange->notVisible = false;
+
+					Item* orangeSeeds = (Item*)*orangeSeedsIterator;
+					Item* water = (Item*)*waterIterator;
+
+					orangeSeeds->notVisible = true;
+					water->notVisible = true;
 
 					cout << "\n> ";
 				}
@@ -174,7 +207,7 @@ void Item::Tick()
 			{
 				bool colorsInPlace = true;
 
-				//Red hole
+				//First Hole
 				Item* item = (Item*)container.at(0);
 				if (item->container.size() == 1)
 				{
@@ -189,7 +222,7 @@ void Item::Tick()
 					colorsInPlace = false;
 				}
 
-				//Orange hole
+				//Second Hole
 				if (colorsInPlace)
 				{
 					item = (Item*)container.at(1);
@@ -207,7 +240,7 @@ void Item::Tick()
 					}
 				}
 
-				//Yellow hole
+				//Third Hole
 				if (colorsInPlace)
 				{
 					item = (Item*)container.at(2);
@@ -225,7 +258,7 @@ void Item::Tick()
 					}
 				}
 
-				//Green hole
+				//Fourth Hole
 				if (colorsInPlace)
 				{
 					item = (Item*)container.at(3);
@@ -243,7 +276,7 @@ void Item::Tick()
 					}
 				}
 
-				//Blue hole
+				//Fifth Hole
 				if (colorsInPlace)
 				{
 					item = (Item*)container.at(4);
@@ -261,7 +294,7 @@ void Item::Tick()
 					}
 				}
 
-				//Violet hole
+				//Sixth Hole
 				if (colorsInPlace)
 				{
 					item = (Item*)container.at(5);

@@ -79,6 +79,7 @@ int main()
 			world = nullptr;
 			world = new World();
 
+			cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
 			cout << "> ";
 
 			inputArgs.push_back("look");

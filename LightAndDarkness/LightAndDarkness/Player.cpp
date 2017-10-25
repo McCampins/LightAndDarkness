@@ -208,15 +208,26 @@ void Player::Open(const std::vector<std::string>& args)
 			}
 			else
 			{
+				bool alreadyOpen = true;
+
 				for (vector<Entity*>::const_iterator it = item->container.begin(); it != item->container.cend(); ++it)
 				{
 					Item* i = (Item*)*it;
 					if (i->openToSee == true)
 					{
 						i->openToSee = false;
+						alreadyOpen = false;
 					}
 				}
-				cout << "\nThe item " << item->name << " is open. You can now look at its contents." << endl;
+
+				if (alreadyOpen)
+				{
+					cout << "\nThis item cannot be opened or is already openened." << endl;
+				}
+				else
+				{
+					cout << "\nThe item " << item->name << " is open. You can now look at its contents." << endl;
+				}
 			}
 		}
 	}
@@ -281,12 +292,22 @@ void Player::Unlock(const std::vector<std::string>& args)
 			exit = (Exit*)GetRoom()->GetExit(args[1]);
 			key = (Item*)Find(args[3], EntityType::ITEM);
 		}
+		else
+		{
+			cout << "\nSorry, I don't understand your command." << endl;
+			return;
+		}
 		break;
 	case 5:
 		if (Same(args[2], "with"))
 		{
 			exit = (Exit*)GetRoom()->GetExit(args[1]);
 			key = (Item*)Find(args[3] + " " + args[4], EntityType::ITEM);
+		}
+		else
+		{
+			cout << "\nSorry, I don't understand your command." << endl;
+			return;
 		}
 		break;
 	default:
