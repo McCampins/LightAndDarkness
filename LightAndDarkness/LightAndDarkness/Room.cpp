@@ -37,7 +37,7 @@ void Room::Look() const
 		else if ((*it)->type == EntityType::ITEM)
 		{
 			Item* item = (Item*)*it;
-			if (item->hidden == false)
+			if (item->openToSee == false)
 				cout << "Inside the room you see " << item->name << endl;
 		}
 

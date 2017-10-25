@@ -1,2 +1,4 @@
 ﻿  Player.cpp
-LINK : fatal error LNK1201: error al escribir en la base de datos del programa 'C:\Users\marca\Documents\GitHub\LightAndDarkness\LightAndDarkness\Debug\LightAndDarkness.pdb'; compruebe si tiene suficiente espacio en disco, si la ruta es válida o si tiene privilegios suficientes
+  Item.cpp
+  Generando código...
+  LightAndDarkness.vcxproj -> C:\Users\marca\Documents\GitHub\LightAndDarkness\LightAndDarkness\Debug\LightAndDarkness.exe

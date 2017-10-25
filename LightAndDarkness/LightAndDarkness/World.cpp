@@ -42,26 +42,20 @@ World::World()
 	entities.push_back(godRoom);
 
 	//Color room keys
-	Item* yellowKey = new Item("Yellow Key", "A small yellow key", nullptr, ItemType::KEY, false, true, true);
 	Item* greenKey = new Item("Green Key", "A small green key", nullptr, ItemType::KEY, false, true, true);
 	Item* blueKey = new Item("Blue Key", "A small blue key", nullptr, ItemType::KEY, false, true, true);
 	Item* violetKey = new Item("Violet Key", "A small violet key", nullptr, ItemType::KEY, false, true, true);
 
-	entities.push_back(yellowKey);
 	entities.push_back(greenKey);
 	entities.push_back(blueKey);
 	entities.push_back(violetKey);
 
 	//Light balls given in each color room
-	Item* redBall = new Item("Red Ball", "A ball of condensed red light", nullptr, ItemType::LIGHTBALL, false, true, true);
-	Item* orangeBall = new Item("Orange Ball", "A ball of condensed orange light", nullptr, ItemType::LIGHTBALL, false, true, true);
 	Item* yellowBall = new Item("Yellow Ball", "A ball of condensed yellow light", nullptr, ItemType::LIGHTBALL, false, true, true);
 	Item* greenBall = new Item("Green Ball", "A ball of condensed green light", nullptr, ItemType::LIGHTBALL, false, true, true);
 	Item* blueBall = new Item("Blue Ball", "A ball of condensed blue light", nullptr, ItemType::LIGHTBALL, false, true, true);
 	Item* violetBall = new Item("Violet Ball", "A ball of condensed violet light", nullptr, ItemType::LIGHTBALL, false, true, true);
 
-	entities.push_back(redBall);
-	entities.push_back(orangeBall);
 	entities.push_back(yellowBall);
 	entities.push_back(greenBall);
 	entities.push_back(blueBall);
@@ -102,9 +96,10 @@ World::World()
 	Item* leftRedChest = new Item("Left Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
 	Item* centerRedChest = new Item("Center Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
 	Item* rightRedChest = new Item("Right Chest", "A wooden chest, no lock can be seen.", redTable, ItemType::COMMON);
-	Item* orangeKey1 = new Item("Left Key", "A small orange key. It was stored on the left chest", leftRedChest, ItemType::KEY, false, true, true);
-	Item* orangeKey2 = new Item("Center Key", "A small orange key. It was stored on the center chest", centerRedChest, ItemType::KEY, false, true, true);
-	Item* orangeKey3 = new Item("Right Key", "A small orange key. It was stored on the right chest", rightRedChest, ItemType::KEY, false, true, true);
+	Item* orangeKey1 = new Item("Left Key", "A small orange key. It was stored on the left chest.", leftRedChest, ItemType::KEY, false, true, false, true);
+	Item* orangeKey2 = new Item("Center Key", "A small orange key. It was stored on the center chest.", centerRedChest, ItemType::KEY, false, true, false, true);
+	Item* orangeKey3 = new Item("Right Key", "A small orange key. It was stored on the right chest.", rightRedChest, ItemType::KEY, false, true, false, true);
+	Item* redBall = new Item("Red Ball", "A ball of condensed red light.", centerRedChest, ItemType::LIGHTBALL, false, true, false, true);
 
 	entities.push_back(redTable);
 	entities.push_back(leftRedChest);
@@ -113,16 +108,31 @@ World::World()
 	entities.push_back(orangeKey1);
 	entities.push_back(orangeKey2);
 	entities.push_back(orangeKey3);
+	entities.push_back(redBall);
 
 	//Orange Room
 	Item* flowerPot = new Item("Flower Pot", "A simple ceramic flower pot, full of fertile soil.", orangeRoom, ItemType::COMMON);
-	Item* bucket = new Item("Bucket", "A wooden bucket full of water", orangeRoom, ItemType::COMMON);
-	Item* water = new Item("Water", "Some water", bucket, ItemType::COMMON, false, false, true);
+	Item* bucket = new Item("Bucket", "A wooden bucket full of water.", orangeRoom, ItemType::COMMON);
+	Item* water = new Item("Water", "Some water", bucket, ItemType::COMMON, false, false, false, true);
 	Item* orangeTable = new Item("Orange Table", "A wooden old table, standing in the middle of the room.", orangeRoom, ItemType::COMMON);
-	Item* appleSeeds = new Item("Apple Seeds", "A few apple seeds.", orangeTable, ItemType::COMMON, false, false, true);
-	Item* lemonSeeds = new Item("Lemon Seeds", "A few lemon seeds.", orangeTable, ItemType::COMMON, false, false, true);
-	Item* strawberrySeeds = new Item("Strawberry Seeds", "A few strawberry seeds.", orangeTable, ItemType::COMMON, false, false, true);
+	Item* appleSeeds = new Item("Apple Seeds", "A few apple seeds.", orangeTable, ItemType::COMMON, false, false, false, true);
+	Item* lemonSeeds = new Item("Lemon Seeds", "A few lemon seeds.", orangeTable, ItemType::COMMON, false, false, false, true);
+	Item* strawberrySeeds = new Item("Strawberry Seeds", "A few strawberry seeds.", orangeTable, ItemType::COMMON, false, false, false, true);
+	Item* lemon = new Item("Lemon", "A fresh lemon. Seems like something is glowing inside.", flowerPot, ItemType::COMMON, false, false, true, true);
+	Item* yellowKey = new Item("Yellow Key", "A small yellow key. It was stored inside the lemon.", lemon, ItemType::KEY, false, true, false, true);
+	Item* orangeBall = new Item("Orange Ball", "A ball of condensed orange light", lemon, ItemType::LIGHTBALL, false, true, false, true);
 
+	entities.push_back(flowerPot);
+	entities.push_back(bucket);
+	entities.push_back(water);
+	entities.push_back(orangeTable);
+	entities.push_back(appleSeeds);
+	entities.push_back(lemonSeeds);
+	entities.push_back(strawberrySeeds);
+	entities.push_back(lemon);
+	entities.push_back(yellowKey);
+	entities.push_back(orangeBall);
+	
 	//Exits
 	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true, orangeKey2);
 	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom, false, true);
@@ -348,6 +358,14 @@ void World::GameLoop()
 	if ((now - tickTimer) / CLOCKS_PER_SEC > STATE_END_LIFE_FREQUENCY)
 	{
 		restart = true;
+	}
+	if ((now - tickTimer) / CLOCKS_PER_SEC > STATE_ITEM_TICK_FREQUENCY)
+	{
+		for (vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
+			if ((*it)->type == EntityType::ITEM)
+				(*it)->Tick();
+
+		tickTimer = now;
 	}
 }
 

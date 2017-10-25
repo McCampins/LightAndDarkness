@@ -43,6 +43,17 @@ void Player::Look(const vector<string>& args) const
 				(*it)->Look();
 				return;
 			}
+			if ((*it)->container.empty() == false)
+			{
+				for (vector<Entity*>::const_iterator it2 = (*it)->container.begin(); it2 != (*it)->container.cend(); ++it2)
+				{
+					if (Same((*it2)->name, args[1]))
+					{
+						(*it2)->Look();
+						return;
+					}
+				}
+			}
 		}
 
 		cout << "\nCan't find this entity." << endl;
@@ -164,9 +175,9 @@ void Player::Open(const std::vector<std::string>& args)
 					for (vector<Entity*>::const_iterator it = item->container.begin(); it != item->container.cend(); ++it)
 					{
 						Item* i = (Item*)*it;
-						if (i->hidden == true)
+						if (i->openToSee == true)
 						{
-							i->hidden = false;
+							i->openToSee = false;
 						}
 					}
 				}
@@ -185,9 +196,9 @@ void Player::Open(const std::vector<std::string>& args)
 			for (vector<Entity*>::const_iterator it = item->container.begin(); it != item->container.cend(); ++it)
 			{
 				Item* i = (Item*)*it;
-				if (i->hidden == true)
+				if (i->openToSee == true)
 				{
-					i->hidden = false;
+					i->openToSee = false;
 				}
 			}
 			cout << "\nThe item " << item->name << " is open. You can now look at its contents." << endl;
@@ -217,7 +228,7 @@ void Player::Take(const std::vector<std::string>& args)
 
 	if (item != nullptr)
 	{
-		if (item->hidden == false)
+		if (item->openToSee == false && item->notVisible == false)
 		{
 			if (item->takeable == true)
 			{
@@ -228,6 +239,10 @@ void Player::Take(const std::vector<std::string>& args)
 			{
 				cout << "\nYou can't take the " << item->name << "." << endl;
 			}
+		}
+		else
+		{
+			cout << "\nCan't find this entity." << endl;
 		}
 		return;
 	}
@@ -357,6 +372,7 @@ void Player::Drop(const std::vector<std::string>& args)
 			if (container != nullptr)
 			{
 				cout << "\nYou drop the item " << droppedItem->name << " into the " << container->name << "." << endl;
+				droppedItem->ChangeParentTo(container);
 			}
 			else
 			{

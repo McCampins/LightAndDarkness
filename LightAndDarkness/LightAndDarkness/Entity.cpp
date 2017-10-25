@@ -74,7 +74,7 @@ Entity* Entity::Find(const string& name, EntityType type) const
 				if (type == EntityType::ITEM)
 				{
 					Item* item = (Item*) *it;
-					if (item->hidden == false)
+					if (item->openToSee == false)
 						return *it;
 				}
 				else

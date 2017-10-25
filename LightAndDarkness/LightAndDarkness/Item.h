@@ -16,15 +16,17 @@ class Item : public Entity
 {
 public:
 	Item(const char* name, const char* description, Entity* parent, ItemType itemType = ItemType::COMMON, bool locked = false,
-		bool hidden = false, bool takeable = false, Entity* key = nullptr);
+		bool openToSee = false, bool notVisible = false, bool takeable = false, Entity* key = nullptr);
 	~Item();
 
 	void Look() const;
+	void Tick();
 
 public:
 	ItemType itemType;
 	bool contentsLocked;
-	bool hidden;
+	bool openToSee;
+	bool notVisible;
 	bool takeable;
 	Entity* key;
 };

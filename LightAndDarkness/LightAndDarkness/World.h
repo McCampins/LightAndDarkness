@@ -7,6 +7,7 @@
 
 #define STATE_CREATURE_TICK_FREQUENCY 60.0f
 #define STATE_END_LIFE_FREQUENCY 300.0f
+#define STATE_ITEM_TICK_FREQUENCY 1.0f
 
 class Entity;
 class Player;
