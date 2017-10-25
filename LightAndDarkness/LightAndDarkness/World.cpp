@@ -243,6 +243,10 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		{
 			player->Take(args);
 		}
+		else if (Same(args[0], "drop"))
+		{
+			player->Drop(args);
+		}
 		else
 		{
 			ret = false;
@@ -261,6 +265,10 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		{
 			player->Take(args);
 		}
+		else if (Same(args[0], "drop"))
+		{
+			player->Drop(args);
+		}
 		else
 		{
 			ret = false;
@@ -274,6 +282,10 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		else if (Same(args[0], "unlock"))
 		{
 			player->Unlock(args);
+		}
+		else if (Same(args[0], "drop"))
+		{
+			player->Drop(args);
 		}
 		else
 		{
@@ -289,6 +301,10 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		{
 			player->Unlock(args);
 		}
+		else if (Same(args[0], "drop"))
+		{
+			player->Drop(args);
+		}
 		else
 		{
 			ret = false;
@@ -298,6 +314,10 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		if (Same(args[0], "open"))
 		{
 			player->Open(args);
+		}
+		else if (Same(args[0], "drop"))
+		{
+			player->Drop(args);
 		}
 		else
 		{

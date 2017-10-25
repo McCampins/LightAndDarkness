@@ -26,27 +26,30 @@ void Item::Look() const
 
 	if (stuff.size() > 0)
 	{
-		bool allHiden = true;
-		for (list<Entity*>::const_iterator it = stuff.begin(); it != stuff.end(); ++it)
+		if (contentsLocked == true)
 		{
-			Item* item = (Item*)*it;
-			if (item->hidden == false)
+			cout << "This item is locked." << endl;
+		}
+		else
+		{
+			bool allHiden = true;
+			for (list<Entity*>::const_iterator it = stuff.begin(); it != stuff.end(); ++it)
 			{
-				cout << "This item contains a " << (*it)->name << endl;
-				allHiden = false;
+				Item* item = (Item*)*it;
+				if (item->hidden == false)
+				{
+					cout << "This item contains a " << (*it)->name << endl;
+					allHiden = false;
+				}
+			}
+			if (allHiden == true)
+			{
+				cout << "This item is closed." << endl;
 			}
 		}
-		if (allHiden == true)
-		{
-			cout << "This item is closed." << endl;
-		}
-	}
-	else if (contentsLocked == true)
-	{
-		cout << "This item is locked." << endl;
 	}
 	else
 	{
-		cout << "This item is empty." << endl;
+		cout << "This item doesn't contain anything." << endl;
 	}
 }

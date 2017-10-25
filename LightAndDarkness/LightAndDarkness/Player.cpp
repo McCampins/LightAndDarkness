@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 
 #include "World.h"
 #include "Player.h"
@@ -51,7 +50,7 @@ void Player::Look(const vector<string>& args) const
 	case 3:
 		for (vector<Entity*>::const_iterator it = parent->container.begin(); it != parent->container.cend(); ++it)
 		{
-			if ((*it)->type == EntityType::ITEM)
+			if ((*it)->type == EntityType::ITEM || (*it)->type == EntityType::PLAYER)
 			{
 				if (Same((*it)->name, args[1] + " " + args[2]))
 				{
@@ -130,21 +129,21 @@ void Player::Open(const std::vector<std::string>& args)
 		if (Same(args[2], "with"))
 		{
 			item = (Item*)GetRoom()->Find(args[1], EntityType::ITEM);
-			key = (Item*)GetRoom()->Find(args[3], EntityType::ITEM);
+			key = (Item*)Find(args[3], EntityType::ITEM);
 		}
 		break;
 	case 5:
 		if (Same(args[3], "with"))
 		{
 			item = (Item*)GetRoom()->Find(args[1] + " " + args[2], EntityType::ITEM);
-			key = (Item*)GetRoom()->Find(args[4], EntityType::ITEM);
+			key = (Item*)Find(args[4], EntityType::ITEM);
 		}
 		break;
 	case 6:
 		if (Same(args[3], "with"))
 		{
 			item = (Item*)GetRoom()->Find(args[1] + " " + args[2], EntityType::ITEM);
-			key = (Item*)GetRoom()->Find(args[4] + " " + args[5], EntityType::ITEM);
+			key = (Item*)Find(args[4] + " " + args[5], EntityType::ITEM);
 		}
 	}
 
@@ -152,21 +151,28 @@ void Player::Open(const std::vector<std::string>& args)
 	{
 		if (item->contentsLocked == true)
 		{
-			if (item->key == key)
+			if (key != nullptr)
 			{
-				cout << "\nYou open this item with your key. You can now see its contents when you look at it." << endl;
-				for (vector<Entity*>::const_iterator it = item->container.begin(); it != item->container.cend(); ++it)
+				if (item->key == key)
 				{
-					Item* i = (Item*)*it;
-					if (i->hidden == true)
+					cout << "\nYou open the item " << item->name << " with your key " << key->name << ". You can now see its contents when you look at it." << endl;
+					for (vector<Entity*>::const_iterator it = item->container.begin(); it != item->container.cend(); ++it)
 					{
-						i->hidden = false;
+						Item* i = (Item*)*it;
+						if (i->hidden == true)
+						{
+							i->hidden = false;
+						}
 					}
+				}
+				else
+				{
+					cout << "\nThe key " << key->name << " can't open the item " << item->name << ", it stays locked." << endl;
 				}
 			}
 			else
 			{
-				cout << "\nYou can't open this item, it's locked." << endl;
+				cout << "\nCan't find the key. Check inventory." << endl;
 			}
 		}
 		else
@@ -179,69 +185,50 @@ void Player::Open(const std::vector<std::string>& args)
 					i->hidden = false;
 				}
 			}
-			cout << "\nThis item is now open. You can now look at its contents." << endl;
+			cout << "\nThe item " << item->name << " is open. You can now look at its contents." << endl;
 		}
 	}
 	else
 	{
-		cout << "\nThis item doesn't exist." << endl;
+		cout << "\nCan't find the item in this room." << endl;
 	}
 }
 
 void Player::Take(const std::vector<std::string>& args)
 {
-	Item* item;
+	Item* item = nullptr;
+
 	switch (args.size())
 	{
-	case 0:
-	case 1:
-		return; //Error, should never happen
 	case 2:
-		item = (Item*) GetRoom()->Find(args[1], EntityType::ITEM);
-	
-		if (item != nullptr)
-		{
-			if (item->hidden == false)
-			{
-				if (item->takeable == true)
-				{
-					cout << "\nYou take the " << item->name << "." << endl;
-					item->ChangeParentTo(this);
-				}
-				else
-				{
-					cout << "\nYou can't take the " << item->name << "." << endl;
-				}
-			}
-			return;
-		}
-
-		cout << "\nCan't find this entity." << endl;
-		return;
+		item = (Item*)GetRoom()->Find(args[1], EntityType::ITEM);
+		break;
 	case 3:
 		item = (Item*)GetRoom()->Find(args[1] + " " + args[2], EntityType::ITEM);
-
-		if (item != nullptr)
-		{
-			if (item->hidden == false)
-			{
-				if (item->takeable == true)
-				{
-					cout << "\nYou take the " << item->name << "." << endl;
-					item->ChangeParentTo(this);
-				}
-				else
-				{
-					cout << "\nYou can't take the " << item->name << "." << endl;
-				}
-			}
-			return;
-		}
-
-		cout << "\nCan't find this entity." << endl;
-		return;
+		break;
 	default:
 		return; //Error, should never happen
+	}
+
+	if (item != nullptr)
+	{
+		if (item->hidden == false)
+		{
+			if (item->takeable == true)
+			{
+				cout << "\nYou take the " << item->name << "." << endl;
+				item->ChangeParentTo(this);
+			}
+			else
+			{
+				cout << "\nYou can't take the " << item->name << "." << endl;
+			}
+		}
+		return;
+	}
+	else
+	{
+		cout << "\nCan't find this entity." << endl;
 	}
 }
 
@@ -249,7 +236,6 @@ void Player::Unlock(const std::vector<std::string>& args)
 {
 	Exit* exit = nullptr;
 	Item* key = nullptr;
-	string keyName;
 
 	switch (args.size())
 	{
@@ -258,7 +244,6 @@ void Player::Unlock(const std::vector<std::string>& args)
 		{
 			exit = (Exit*)GetRoom()->GetExit(args[1]);
 			key = (Item*)Find(args[3], EntityType::ITEM);
-			keyName = args[3];
 		}
 		break;
 	case 5:
@@ -266,7 +251,6 @@ void Player::Unlock(const std::vector<std::string>& args)
 		{
 			exit = (Exit*)GetRoom()->GetExit(args[1]);
 			key = (Item*)Find(args[3] + " " + args[4], EntityType::ITEM);
-			keyName = args[3] + " " + args[4];
 		}
 		break;
 	default:
@@ -279,28 +263,27 @@ void Player::Unlock(const std::vector<std::string>& args)
 		{
 			if (key == nullptr)
 			{
-				cout << "\nYou don't have the key " << keyName << endl;
+				cout << "\nCan't find the key. Check inventory." << endl;
 				return;
 			}
 			if (exit->key == key)
 			{
-				cout << "\nYou open the exit to the " << args[1] <<  " with the " << keyName << ". You can now go through it." << endl;
+				cout << "\nYou open the exit to the " << exit->name << " with the " << key->name << ". You can now go through it." << endl;
 				exit->locked = false;
 			}
 			else
 			{
-				cout << "\This " << keyName << " is not the key for the exit to the " << args[1] << "." << endl;
- 			}
+				cout << "\nThis " << key->name << " is not the key for the exit to the " << exit->name << "." << endl;
+			}
 		}
 		else
 		{
-			
-			cout << "\nThe exit to the " << keyName << " is not locked." << endl;
+			cout << "\nThe exit to the " << exit->name << " is not locked." << endl;
 		}
 	}
 	else
 	{
-		cout << "\nThere is no exit to the " << args[1] << endl;
+		cout << "\nThere is no exit to the " << exit->name << endl;
 	}
 }
 
@@ -324,5 +307,61 @@ void Player::Inventory() const
 
 void Player::Drop(const std::vector<std::string>& args)
 {
+	Item* droppedItem = nullptr;
+	Item* container = nullptr;
 
+	switch (args.size())
+	{
+	case 2:
+		droppedItem = (Item*)Find(args[1], EntityType::ITEM);
+		break;
+	case 3:
+		droppedItem = (Item*)Find(args[1] + " " + args[2], EntityType::ITEM);
+		break;
+	case 4:
+		if (Same(args[2], "into"))
+		{
+			droppedItem = (Item*)Find(args[1], EntityType::ITEM);
+			container = (Item*)GetRoom()->Find(args[3], EntityType::ITEM);
+		}
+		break;
+	case 5:
+		if (Same(args[3], "into"))
+		{
+			droppedItem = (Item*)Find(args[1] + " " + args[2], EntityType::ITEM);
+			container = (Item*)GetRoom()->Find(args[4], EntityType::ITEM);
+		}
+		break;
+	case 6:
+		if (Same(args[3], "into"))
+		{
+			droppedItem = (Item*)Find(args[1] + " " + args[2], EntityType::ITEM);
+			container = (Item*)GetRoom()->Find(args[4] + " " + args[5], EntityType::ITEM);
+		}
+	}
+
+	if (droppedItem != nullptr)
+	{
+		if (args.size() > 3)
+		{
+			if (container != nullptr)
+			{
+				cout << "\nYou drop the item " << droppedItem->name << " into the " << container->name << "." << endl;
+			}
+			else
+			{
+				cout << "\nThe container where you want to drop the item " << droppedItem->name << " can't be found in this room or "
+					"in your inventory." << endl;
+			}
+		}
+		else
+		{
+			cout << "\nYou drop the item " << droppedItem->name << " in this room." << endl;
+			droppedItem->ChangeParentTo(GetRoom());
+		}
+	}
+	else
+	{
+		cout << "\nYou don't have this item. Check inventory." << endl;
+	}
 }

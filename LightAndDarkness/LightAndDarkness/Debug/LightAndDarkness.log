@@ -1,5 +1,2 @@
-﻿  World.cpp
-  Player.cpp
-c:\users\marca\documents\github\lightanddarkness\lightanddarkness\lightanddarkness\player.cpp(292): warning C4129: 'T': secuencia de escape de carácter no reconocida
-  Generando código...
+﻿  Player.cpp
   LightAndDarkness.vcxproj -> C:\Users\marca\Documents\GitHub\LightAndDarkness\LightAndDarkness\Debug\LightAndDarkness.exe
