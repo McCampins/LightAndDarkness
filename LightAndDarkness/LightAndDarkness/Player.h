@@ -14,6 +14,8 @@ public:
 	void Open(const std::vector<std::string>& args);
 	void Take(const std::vector<std::string>& args);
 	void Unlock(const std::vector<std::string>& args);
+	void Inventory() const;
+	void Drop(const std::vector<std::string>& args);
 };
 
 #endif

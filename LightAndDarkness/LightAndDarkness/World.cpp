@@ -18,7 +18,8 @@ World::World()
 	//Rooms
 	Room* redRoom = new Room("Red Room", "You are inside a small room, dimly lighted with one red lamp. When you enter you hear a faint "
 		"echo through the light: \"No mind can ever wander too far, a sense of balance must be met in order to advance...\"");
-	Room* orangeRoom = new Room("Orange Room", "You are inside a small room, dimly lighted with two orange lamps.");
+	Room* orangeRoom = new Room("Orange Room", "You are inside a small room, dimly lighted with two orange lamps. When you enter you hear a faint "
+		"echo through the light: \"All that serves a purpose, must first grow...\"");
 	Room* yellowRoom = new Room("Yellow Room", "You are inside a small room, dimly lighted with three yellow lamps.");
 	Room* greenRoom = new Room("Green Room", "You are inside a small room, dimly ligthed with four green lamps.");
 	Room* blueRoom = new Room("Blue Room", "You are inside a small room, dimly lighted with five blue lamps.");
@@ -114,7 +115,12 @@ World::World()
 	entities.push_back(orangeKey3);
 
 	//Orange Room
-	Item* pot = new Item("Flower Pot", "A simple ceramic flower pot, full of fertile soil.", orangeRoom, ItemType::COMMON);
+	Item* flowerPot = new Item("Flower Pot", "A simple ceramic flower pot, full of fertile soil.", orangeRoom, ItemType::COMMON);
+	Item* bucket = new Item("Bucket", "A wooden bucket full of water", orangeRoom, ItemType::COMMON, false, false, true);
+	Item* orangeTable = new Item("Orange Table", "A wooden old table, standing in the middle of the room.", orangeRoom, ItemType::COMMON);
+	Item* appleSeeds = new Item("Apple Seeds", "A few apple seeds.", orangeTable, ItemType::COMMON, false, false, true);
+	Item* lemonSeeds = new Item("Lemon Seeds", "A few lemon seeds.", orangeTable, ItemType::COMMON, false, false, true);
+	Item* strawberrySeeds = new Item("Strawberry Seeds", "A few strawberry seeds.", orangeTable, ItemType::COMMON, false, false, true);
 
 	//Exits
 	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true, orangeKey2);
@@ -202,6 +208,10 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		{
 			args.push_back("west");
 			player->Go(args);
+		}
+		else if (Same(args[0], "inventory"))
+		{
+			player->Inventory();
 		}
 		else
 		{

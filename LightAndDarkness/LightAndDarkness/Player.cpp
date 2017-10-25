@@ -303,3 +303,26 @@ void Player::Unlock(const std::vector<std::string>& args)
 		cout << "\nThere is no exit to the " << args[1] << endl;
 	}
 }
+
+void Player::Inventory() const
+{
+	list<Entity*> playerItems;
+	FindAll(EntityType::ITEM, playerItems);
+
+	if (playerItems.size() == 0)
+	{
+		cout << "\nYou are not carrying any items!" << endl;
+		return;
+	}
+
+	cout << "\n";
+	for (list<Entity*>::const_iterator it = playerItems.begin(); it != playerItems.cend(); ++it)
+	{
+		cout << "You have a " << (*it)->name << "." << endl;
+	}
+}
+
+void Player::Drop(const std::vector<std::string>& args)
+{
+
+}
