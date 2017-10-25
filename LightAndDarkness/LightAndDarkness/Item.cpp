@@ -144,7 +144,8 @@ void Item::Tick()
 		}
 
 		Item* rightStatue = (Item*)parent->Find("Right Statue", EntityType::ITEM);
-		if (rightStatue != nullptr) {
+		if (rightStatue != nullptr)
+		{
 			if (rightStatue->container.size() == 3)
 			{
 				rightStatue->description = "Huge statue made of stone. It's looking to the left with a smirk on his face";
@@ -165,6 +166,103 @@ void Item::Tick()
 	}
 	if (Same(name, "Stone Pillar"))
 	{
+		Item* whiteBall = (Item*)parent->Find("White Ball", EntityType::ITEM);
 
+		if (whiteBall->notVisible == true)
+		{
+			bool colorsInPlace = true;
+
+			//Red hole
+			Item* item = (Item*)container.at(0);
+			if (item->container.size() == 1)
+			{
+				Item* ball = (Item*)item->container.at(0);
+				if (Same(ball->name, "Red Ball") == false)
+				{
+					colorsInPlace = false;
+				}
+			}
+
+			//Orange hole
+			if (colorsInPlace)
+			{
+				item = (Item*)container.at(1);
+				if (item->container.size() == 1)
+				{
+					Item* ball = (Item*)item->container.at(0);
+					if (Same(ball->name, "Orange Ball") == false)
+					{
+						colorsInPlace = false;
+					}
+				}
+			}
+
+			//Yellow hole
+			if (colorsInPlace)
+			{
+				item = (Item*)container.at(2);
+				if (item->container.size() == 1)
+				{
+					Item* ball = (Item*)item->container.at(0);
+					if (Same(ball->name, "Yellow Ball") == false)
+					{
+						colorsInPlace = false;
+					}
+				}
+			}
+
+			//Green hole
+			if (colorsInPlace)
+			{
+				item = (Item*)container.at(3);
+				if (item->container.size() == 1)
+				{
+					Item* ball = (Item*)item->container.at(0);
+					if (Same(ball->name, "Green Ball") == false)
+					{
+						colorsInPlace = false;
+					}
+				}
+			}
+
+			//Blue hole
+			if (colorsInPlace)
+			{
+				item = (Item*)container.at(4);
+				if (item->container.size() == 1)
+				{
+					Item* ball = (Item*)item->container.at(0);
+					if (Same(ball->name, "Blue Ball") == false)
+					{
+						colorsInPlace = false;
+					}
+				}
+			}
+
+			//Violet hole
+			if (colorsInPlace)
+			{
+				item = (Item*)container.at(5);
+				if (item->container.size() == 1)
+				{
+					Item* ball = (Item*)item->container.at(0);
+					if (Same(ball->name, "Violet Ball") == false)
+					{
+						colorsInPlace = false;
+					}
+				}
+			}
+
+			if (colorsInPlace)
+			{
+				cout << "\nAll the holes from the stone pillar shine brighly, all the colors collapsing onto each other. The intensity of the light "
+					"keeps growing stronger, until finally it explodes and leaves a small object behind." << endl;
+
+				whiteBall->notVisible = false;
+
+				cout << "\n> ";
+			}
+		}
 	}
 }
+

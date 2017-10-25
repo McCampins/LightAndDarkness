@@ -199,14 +199,14 @@ World::World()
 	entities.push_back(violetBall);
 
 	//Exits
-	Exit* ex1 = new Exit("North", "South", "Light Door", redRoom, orangeRoom, false, true, orangeKey2);
-	Exit* ex2 = new Exit("South", "North", "Light Door", redRoom, yellowRoom, false, true, yellowKey);
+	Exit* ex1 = new Exit("North", "South", "Light Door, locked. Looks like you need some kind of key.", redRoom, orangeRoom, false, true, orangeKey2);
+	Exit* ex2 = new Exit("South", "North", "Light Door, locked. Looks like you need some kind of ball.", redRoom, yellowRoom, false, true, yellowKey);
 	Exit* ex3 = new Exit("West", "East", "Narrow Passage", centerRoom, redRoom);
 	Exit* ex4 = new Exit("South", "North", "Narrow Passage", corpseRoom, centerRoom, true);
-	Exit* ex5 = new Exit("South", "North", "Light Door", centerRoom, godRoom, false, true, whiteBall);
-	Exit* ex6 = new Exit("East", "West", "Light Door", centerRoom, greenRoom, false, true, greenKey);
-	Exit* ex7 = new Exit("North", "South", "Light Door", greenRoom, blueRoom, false, true, blueKey);
-	Exit* ex8 = new Exit("South", "North", "Light Door", greenRoom, violetRoom, false, true, violetKey);
+	Exit* ex5 = new Exit("South", "North", "Light Door, locked. Looks like you need some kind of ball.", centerRoom, godRoom, false, true, whiteBall);
+	Exit* ex6 = new Exit("East", "West", "Light Door, locked. Looks like you need some kind of ball.", centerRoom, greenRoom, false, true, greenKey);
+	Exit* ex7 = new Exit("North", "South", "Light Door, locked. Looks like you need some kind of ball.", greenRoom, blueRoom, false, true, blueKey);
+	Exit* ex8 = new Exit("South", "North", "Light Door, locked. Looks like you need some kind of ball.", greenRoom, violetRoom, false, true, violetKey);
 
 	entities.push_back(ex1);
 	entities.push_back(ex2);
