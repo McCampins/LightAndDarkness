@@ -255,7 +255,8 @@ void Player::Take(const std::vector<std::string>& args)
 		}
 		else
 		{
-			item = nullptr;
+			if (item->parent->type == EntityType::PLAYER)
+				item = nullptr;
 		}
 		break;
 	case 3:
@@ -266,7 +267,8 @@ void Player::Take(const std::vector<std::string>& args)
 		}
 		else
 		{
-			item = nullptr;
+			if (item->parent->type == EntityType::PLAYER)
+				item = nullptr;
 		}
 		break;
 	default:
@@ -294,6 +296,7 @@ void Player::Take(const std::vector<std::string>& args)
 			else
 			{
 				cout << "\nYou can't take the " << item->name << "." << endl;
+				return;
 			}
 		}
 	}
@@ -490,16 +493,26 @@ void Player::Tick()
 
 	if (GetRoom() == previousLocation)
 	{
-		if (Same(previousLocation->name, "Yellow Room"))
+		if (previousLocation != nullptr)
 		{
-			item = (Item*)GetRoom()->Find("Yellow Ball", EntityType::ITEM);
-			if (item->notVisible == true)
+			if (Same(previousLocation->name, "Yellow Room"))
 			{
-				item->notVisible = false;
-				item = (Item*)GetRoom()->Find("Green Key", EntityType::ITEM);
-				item->notVisible = false;
-				cout << "\nYour patience has been rewarded. Two objects appear in the room..." << endl;
-				cout << "\n> ";
+				item = (Item*)GetRoom()->Find("Yellow Ball", EntityType::ITEM);
+				if (item != nullptr)
+				{
+					if (item->notVisible == true)
+					{
+						item->notVisible = false;
+						item = (Item*)GetRoom()->Find("Green Key", EntityType::ITEM);
+						if (item != nullptr)
+						{
+							item->notVisible = false;
+							cout << "\nYour patience has been rewarded. Two objects appear in the room..." << endl;
+							cout << "\n> ";
+
+						}
+					}
+				}
 			}
 		}
 	}

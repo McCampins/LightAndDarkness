@@ -146,7 +146,8 @@ void Item::Tick()
 
 					item->notVisible = false;
 					item = (Item*)parent->Find("Blue Key", EntityType::ITEM);
-					item->notVisible = false;
+					if (item != nullptr)
+						item->notVisible = false;
 
 					cout << "\n> ";
 				}
@@ -193,34 +194,46 @@ void Item::Tick()
 
 				//First Hole
 				Item* item = (Item*)container.at(0);
-				if (item->container.size() == 1)
+				if (item != nullptr)
 				{
-					Item* ball = (Item*)item->container.at(0);
-					if (Same(ball->name, "Red Ball") == false)
+					if (item->container.size() == 1)
+					{
+						Item* ball = (Item*)item->container.at(0);
+						if (ball != nullptr)
+						{
+							if (Same(ball->name, "Red Ball") == false)
+							{
+								colorsInPlace = false;
+							}
+						}
+					}
+					else
 					{
 						colorsInPlace = false;
 					}
-				}
-				else
-				{
-					colorsInPlace = false;
 				}
 
 				//Second Hole
 				if (colorsInPlace)
 				{
 					item = (Item*)container.at(1);
-					if (item->container.size() == 1)
+					if (item != nullptr)
 					{
-						Item* ball = (Item*)item->container.at(0);
-						if (Same(ball->name, "Orange Ball") == false)
+						if (item->container.size() == 1)
+						{
+							Item* ball = (Item*)item->container.at(0);
+							if (ball != nullptr)
+							{
+								if (Same(ball->name, "Orange Ball") == false)
+								{
+									colorsInPlace = false;
+								}
+							}
+						}
+						else
 						{
 							colorsInPlace = false;
 						}
-					}
-					else
-					{
-						colorsInPlace = false;
 					}
 				}
 
@@ -228,17 +241,23 @@ void Item::Tick()
 				if (colorsInPlace)
 				{
 					item = (Item*)container.at(2);
-					if (item->container.size() == 1)
+					if (item != nullptr)
 					{
-						Item* ball = (Item*)item->container.at(0);
-						if (Same(ball->name, "Yellow Ball") == false)
+						if (item->container.size() == 1)
+						{
+							Item* ball = (Item*)item->container.at(0);
+							if (ball != nullptr)
+							{
+								if (Same(ball->name, "Yellow Ball") == false)
+								{
+									colorsInPlace = false;
+								}
+							}
+						}
+						else
 						{
 							colorsInPlace = false;
 						}
-					}
-					else
-					{
-						colorsInPlace = false;
 					}
 				}
 
@@ -246,17 +265,23 @@ void Item::Tick()
 				if (colorsInPlace)
 				{
 					item = (Item*)container.at(3);
-					if (item->container.size() == 1)
+					if (item != nullptr)
 					{
-						Item* ball = (Item*)item->container.at(0);
-						if (Same(ball->name, "Green Ball") == false)
+						if (item->container.size() == 1)
+						{
+							Item* ball = (Item*)item->container.at(0);
+							if (ball != nullptr)
+							{
+								if (Same(ball->name, "Green Ball") == false)
+								{
+									colorsInPlace = false;
+								}
+							}
+						}
+						else
 						{
 							colorsInPlace = false;
 						}
-					}
-					else
-					{
-						colorsInPlace = false;
 					}
 				}
 
@@ -264,17 +289,23 @@ void Item::Tick()
 				if (colorsInPlace)
 				{
 					item = (Item*)container.at(4);
-					if (item->container.size() == 1)
+					if (item != nullptr)
 					{
-						Item* ball = (Item*)item->container.at(0);
-						if (Same(ball->name, "Blue Ball") == false)
+						if (item->container.size() == 1)
+						{
+							Item* ball = (Item*)item->container.at(0);
+							if (ball != nullptr)
+							{
+								if (Same(ball->name, "Blue Ball") == false)
+								{
+									colorsInPlace = false;
+								}
+							}
+						}
+						else
 						{
 							colorsInPlace = false;
 						}
-					}
-					else
-					{
-						colorsInPlace = false;
 					}
 				}
 
@@ -282,17 +313,23 @@ void Item::Tick()
 				if (colorsInPlace)
 				{
 					item = (Item*)container.at(5);
-					if (item->container.size() == 1)
+					if (item != nullptr)
 					{
-						Item* ball = (Item*)item->container.at(0);
-						if (Same(ball->name, "Violet Ball") == false)
+						if (item->container.size() == 1)
+						{
+							Item* ball = (Item*)item->container.at(0);
+							if (ball != nullptr)
+							{
+								if (Same(ball->name, "Violet Ball") == false)
+								{
+									colorsInPlace = false;
+								}
+							}
+						}
+						else
 						{
 							colorsInPlace = false;
 						}
-					}
-					else
-					{
-						colorsInPlace = false;
 					}
 				}
 

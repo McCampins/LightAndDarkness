@@ -93,5 +93,12 @@ int main()
 
 	}
 
+	bool closeWindow = false;
+	while (closeWindow)
+	{
+		cout << "\n\nPress enter to close the window or close it manually by pressing the cross at the top right corner.";
+		cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+	}
+
 	return 0;
 }
