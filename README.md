@@ -65,19 +65,19 @@ Anything with a purpose must first grow. There is another table in the room. The
 Patience is virtue. Wait for a few seconds until the room makes two objects appear. Take the Green Key and the Yellow Ball. Go North to the Red Room and then Go East to the Center Room. Unlock East with the Green Key.
 
 ### Green Room
-Quid pro quo. A favor for a favor. Take the Meat from the Cabinet and Drop it into the Emerald Crocodile. He will give you in return the Blue Key and the Green Ball.  Unlock North with Blue Key.
+Quid pro quo. A favor for a favor. Take the Meat from the Cabinet and Drop it into the Emerald Crocodile. He will give you in return the Blue Key and the Green Ball. Unlock North with Blue Key.
 
 ### Blue Room
-We want what we don't have. The Right Statue envys what the Left Statue has. Take Gold, Silver and Bronze from the Left Statue and Drop it in the Right Statue. The Left Statue will cry a single Tear. Take the Tear. Open it and Take the Violet Key and the Blue Ball. Go South to the Green Room and Unlock South with the Violet Key.
+We desire what we don't have. The Right Statue envys what the Left Statue has. Take Gold, Silver and Bronze from the Left Statue and Drop it into the Right Statue. The Left Statue will cry a single Tear. Take the Tear. Open it and Take the Violet Key and the Blue Ball. Go South to the Green Room and Unlock South with the Violet Key.
 
 ### Violet Room
 Triangular numbers are key. Triangular numbers follow the sequence 1, 3, 6, 10... Open the Violet Chest (1). Open the Box 3 inside Violet Chest. Open the Box 6 inside Box 3. Open the Box 10 inside Box 6. Take Violet Ball. Go North to Green Room and Go West to Center Room.
 
 ### Center Room
-Now we have all six colored balls. The Stone Pillar has six holes and a rainbow carved on it. Drop the colors in the order they appear on a rainbow. Drop Red Ball in First Hole, Orange Ball in Second Hole, Yellow Ball in Third Hole, Green Ball in Fourth Hole, Blue Ball in Fifth Hole and Violet Ball in Sixth Hole. A White Ball will appear when all colors combine. Take White Ball. Unlock South with White Ball.
+Now we have all six colored balls. The Stone Pillar has six holes and a rainbow carved on it. Drop the colors in the order of colors in a rainbow. Drop Red Ball in First Hole, Orange Ball in Second Hole, Yellow Ball in Third Hole, Green Ball in Fourth Hole, Blue Ball in Fifth Hole and Violet Ball in Sixth Hole. A White Ball will appear when all colors combine. Take White Ball. Unlock South with White Ball.
 
 ### God Room
-You are now on the God Room. Fulfill your purpose. Touch Ligth God.
+You are now in the God Room. Fulfill your purpose. Touch Light God.
 
 ## Author
 
