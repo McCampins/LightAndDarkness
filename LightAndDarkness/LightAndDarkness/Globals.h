@@ -1,7 +1,7 @@
 #ifndef __Globals__
 #define __Globals__
 
-//#define NDEBUG (to invalidate asserts)
+#define NDEBUG //Invalidate asserts
 
 #include <string>
 #include <vector>

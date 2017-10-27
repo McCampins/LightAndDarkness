@@ -7,7 +7,6 @@ enum class ItemType
 {
 	LIGHTBALL,
 	WHITEBALL,
-	BLACKBALL,
 	KEY,
 	COMMON,
 };

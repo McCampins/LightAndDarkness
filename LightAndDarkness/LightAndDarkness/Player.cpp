@@ -136,7 +136,7 @@ void Player::Go(const std::vector<std::string>& args)
 	parent->Look();
 }
 
-void Player::Open(const std::vector<std::string>& args)
+void Player::Open(const std::vector<std::string>& args) const
 {
 	Item* item = nullptr;
 	Item* key = nullptr;
@@ -248,7 +248,7 @@ void Player::Take(const std::vector<std::string>& args)
 	switch (args.size())
 	{
 	case 2:
-		item = (Item*)Find(args[1], EntityType::ITEM); 
+		item = (Item*)Find(args[1], EntityType::ITEM);
 		if (item == nullptr)
 		{
 			item = (Item*)GetRoom()->Find(args[1], EntityType::ITEM);
@@ -283,10 +283,12 @@ void Player::Take(const std::vector<std::string>& args)
 				{
 					cout << "\nYou take the " << item->name << "." << endl;
 					item->ChangeParentTo(this);
+					return;
 				}
 				else
 				{
 					cout << "\nYour inventory is full, must drop something before taking anything else." << endl;
+					return;
 				}
 			}
 			else
@@ -294,19 +296,11 @@ void Player::Take(const std::vector<std::string>& args)
 				cout << "\nYou can't take the " << item->name << "." << endl;
 			}
 		}
-		else
-		{
-			cout << "\nCan't find this entity." << endl;
-		}
-		return;
 	}
-	else
-	{
-		cout << "\nCan't find this entity." << endl;
-	}
+	cout << "\nCan't find this entity." << endl;
 }
 
-void Player::Unlock(const std::vector<std::string>& args)
+void Player::Unlock(const std::vector<std::string>& args) const
 {
 	Exit* exit = nullptr;
 	Item* key = nullptr;
@@ -469,7 +463,7 @@ void Player::Drop(const std::vector<std::string>& args)
 	}
 }
 
-void Player::Touch(const std::vector<std::string>& args)
+void Player::Touch(const std::vector<std::string>& args) const
 {
 	if (args.size() == 3) //Should always happen
 	{

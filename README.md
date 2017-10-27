@@ -27,7 +27,7 @@
 	
 ### Unlock
 > Used to unlock exits.
-> * **"unlock"** + direction (north, east, south, or west) + **"with"** + nameOfKey
+> * **"unlock"** + direction (north, east, south, west or n, e, s, w) + **"with"** + nameOfKey
 
 ### Take
 > Used to take items into inventory. Not all items can be taken.

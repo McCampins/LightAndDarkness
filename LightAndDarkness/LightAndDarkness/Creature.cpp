@@ -24,13 +24,6 @@ void Creature::Look() const
 
 void Creature::Go(const std::vector<std::string>& args)
 {
-	Exit* exit = GetRoom()->GetExit(args[1]);
-
-	if (exit == nullptr)
-		return;
-
-	if (PlayerInRoom())
-		cout << name << " moves " << args[1] << "." << endl;
 }
 
 void Creature::Tick()

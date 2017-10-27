@@ -2,7 +2,6 @@
 #define __Room__
 
 #include <string>
-#include <vector>
 
 #include "Entity.h"
 

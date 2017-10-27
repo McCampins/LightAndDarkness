@@ -365,6 +365,22 @@ bool World::ParseCommand(std::vector<std::string>& args)
 		}
 		else if (Same(args[0], "unlock"))
 		{
+			if (Same(args[1], "n"))
+			{
+				args[1] = "north";
+			}
+			else if (Same(args[1], "e"))
+			{
+				args[1] = "east";
+			}
+			else if (Same(args[1], "s"))
+			{
+				args[1] = "south";
+			}
+			else if (Same(args[1], "w"))
+			{
+				args[1] = "west";
+			}
 			player->Unlock(args);
 		}
 		else if (Same(args[0], "drop"))
