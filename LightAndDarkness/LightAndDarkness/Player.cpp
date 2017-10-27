@@ -222,7 +222,7 @@ void Player::Open(const std::vector<std::string>& args) const
 
 				if (alreadyOpen)
 				{
-					cout << "\nThis item cannot be opened or is already openened." << endl;
+					cout << "\nThis item cannot be opened or is already opened." << endl;
 				}
 				else
 				{
