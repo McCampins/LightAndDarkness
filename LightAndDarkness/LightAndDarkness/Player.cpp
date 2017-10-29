@@ -412,6 +412,11 @@ void Player::Drop(const std::vector<std::string>& args)
 			droppedItem = (Item*)Find(args[1], EntityType::ITEM);
 			container = (Item*)GetRoom()->Find(args[3], EntityType::ITEM);
 		}
+		else
+		{
+			cout << "\nSorry, I don't understand your command." << endl;
+			return;
+		}
 		break;
 	case 5:
 		if (Same(args[2], "into") || Same(args[2], "in"))
@@ -419,10 +424,15 @@ void Player::Drop(const std::vector<std::string>& args)
 			droppedItem = (Item*)Find(args[1], EntityType::ITEM);
 			container = (Item*)GetRoom()->Find(args[3] + " " + args[4], EntityType::ITEM);
 		}
-		if (Same(args[3], "into") || Same(args[3], "in"))
+		else if (Same(args[3], "into") || Same(args[3], "in"))
 		{
 			droppedItem = (Item*)Find(args[1] + " " + args[2], EntityType::ITEM);
 			container = (Item*)GetRoom()->Find(args[4], EntityType::ITEM);
+		}
+		else
+		{
+			cout << "\nSorry, I don't understand your command." << endl;
+			return;
 		}
 		break;
 	case 6:
@@ -430,6 +440,11 @@ void Player::Drop(const std::vector<std::string>& args)
 		{
 			droppedItem = (Item*)Find(args[1] + " " + args[2], EntityType::ITEM);
 			container = (Item*)GetRoom()->Find(args[4] + " " + args[5], EntityType::ITEM);
+		}
+		else
+		{
+			cout << "\nSorry, I don't understand your command." << endl;
+			return;
 		}
 		break;
 	default:
